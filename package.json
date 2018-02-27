@@ -7,7 +7,7 @@
     "start": "node index.js",
     "server": "nodemon --exec \"npm start\"",
     "client": "npm run start --prefix client",
-    "dev": "concurrentyl \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "NODE_ENV=test nodemon --exec 'mocha -R min'"
   },
   "engines": {
@@ -26,7 +26,8 @@
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.2",
     "mongodb": "^3.0.3",
-    "mongoose": "^5.0.7"
+    "mongoose": "^5.0.7",
+    "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
     "assert": "^1.4.1",

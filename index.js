@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
 
 const app = express();
-console.log('here');
+
 app.use(bodyParser.json());
 app.use(
   cookieSession({
