@@ -6,5 +6,5 @@ import Typography from 'material-ui/Typography';
 const styles = theme => ({});
 
 export default withStyles(styles)(_ => (
-  <Typography variant="title">Home</Typography>
+  <Typography variant="title">Suppliety</Typography>
 ));

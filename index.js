@@ -2,12 +2,11 @@ require('./config/config');
 
 const express = require('express');
 const mongoose = require('mongoose');
-// const { ObjectID } = require('mongodb')
 const bodyParser = require('body-parser');
-// const passport = require('passport')
+const passport = require('passport');
 const cookieSession = require('cookie-session');
 
-// require('./services/passport')
+require('./services/passport');
 
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
@@ -22,22 +21,21 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./routes/authRoutes')(app);
+
 app.get('/', (req, res) => res.send('Hello world!'));
-// app.use(passport.initialize())
-// app.use(passport.session())
 
-require('./routes/userRoutes')(app);
-// require('./routes/postRoutes')(app)
-// require('./routes/googleMapApiRoutes')(app)
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
 
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static('client/build'))
-//
-//   const path = require('path')
-//   app.get('*', (req, res) => {
-//     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-//   })
-// }
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 app.listen(process.env.PORT, () => {
   console.log(`Server started on port ${process.env.PORT}`);

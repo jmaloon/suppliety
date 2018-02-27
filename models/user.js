@@ -7,17 +7,12 @@ const UserSchema = new Schema({
     ref: 'company'
   },
   created: Date,
-  email: {
-    type: String,
-    required: true
-  },
+  email: String,
+  googleId: String,
   image: String,
   lists: Object,
   mobile: String,
-  name: {
-    type: String,
-    required: true
-  },
+  name: { type: String, default: 'New User' },
   title: String,
   recentlyViewed: {
     type: Schema.Types.ObjectId,

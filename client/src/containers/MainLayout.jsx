@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import AppBar from 'containers/AppBar';
 import HomeCntr from 'containers/HomeCntr';
 
+import * as authActions from 'actions/AuthActions';
+
 class MainLayout extends Component {
+  componentDidMount() {
+    this.props.authActions.fetchUser();
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -17,4 +25,11 @@ class MainLayout extends Component {
   }
 }
 
-export default MainLayout;
+export default connect(
+  ({ auth }) => ({
+    auth: auth
+  }),
+  dispatch => ({
+    authActions: bindActionCreators(authActions, dispatch)
+  })
+)(MainLayout);
