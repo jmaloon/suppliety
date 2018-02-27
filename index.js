@@ -7,15 +7,13 @@ const bodyParser = require('body-parser');
 // const passport = require('passport')
 const cookieSession = require('cookie-session');
 
-// const { User } = require('./models/User')
-// const { Post } = require('./models/Post')
 // require('./services/passport')
 
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
 
 const app = express();
-
+console.log('here');
 app.use(bodyParser.json());
 app.use(
   cookieSession({
@@ -28,7 +26,7 @@ app.get('/', (req, res) => res.send('Hello world!'));
 // app.use(passport.initialize())
 // app.use(passport.session())
 
-// require('./routes/authRoutes')(app)
+require('./routes/userRoutes')(app);
 // require('./routes/postRoutes')(app)
 // require('./routes/googleMapApiRoutes')(app)
 
@@ -44,3 +42,5 @@ app.get('/', (req, res) => res.send('Hello world!'));
 app.listen(process.env.PORT, () => {
   console.log(`Server started on port ${process.env.PORT}`);
 });
+
+module.exports = app;

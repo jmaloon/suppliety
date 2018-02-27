@@ -14,7 +14,10 @@ const UserSchema = new Schema({
   image: String,
   lists: Object,
   mobile: String,
-  name: String,
+  name: {
+    type: String,
+    required: true
+  },
   title: String,
   recentlyViewed: {
     type: Schema.Types.ObjectId,
