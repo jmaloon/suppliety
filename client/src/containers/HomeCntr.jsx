@@ -1,58 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withStyles } from 'theme/utils';
 
-import Home from 'components/Home';
-import UserForm from 'components/UserForm';
-import Typography from 'material-ui/Typography';
+import HomeLayout from 'components/layouts/HomeLayout';
 
 import * as userActions from 'actions/UserActions';
 
-const styles = theme => ({
-  container: {
-    display: 'grid',
-    gridTemplateColumns: 'auto 960px auto',
-    gridTemplateRows: 'auto',
-    gridTemplateAreas: "'. content .'"
-  },
-  content: {
-    gridArea: 'content',
-    padding: 20
-  },
-  [theme.breakpoints.down('sm')]: {
-    container: {
-      gridTemplateColumns: 'auto',
-      gridTemplateAreas: "'content'"
-    }
-  }
-});
-
 class HomeCntr extends Component {
-  onSubmit = userData => {
-    console.log(userData);
+  onUserSubmit = userData => {
     this.props.userActions.updateUser(userData);
   };
 
+  onUserCompanySubmit = companyData => {
+    // this.props.userActions.updateUser(companyData);
+    console.log(companyData);
+  };
+
   render() {
-    const { auth, classes } = this.props;
+    const { auth } = this.props;
 
     return (
-      <div className={classes.container}>
-        {auth && !auth.edited ? (
-          <div className={classes.content}>
-            <Typography variant="display1">
-              Welcome, please edit your profile before continuing
-            </Typography>
-            <UserForm auth={auth} onSubmit={this.onSubmit} />
-          </div>
-        ) : (
-          <div className={classes.content}>
-            <Typography variant="display2">Welcome to Suppliety</Typography>
-            <Home auth={auth} />
-          </div>
-        )}
-      </div>
+      <HomeLayout
+        auth={auth}
+        onUserSubmit={this.onUserSubmit}
+        onUserCompanySubmit={this.onUserCompanySubmit}
+      />
     );
   }
 }
@@ -64,4 +36,4 @@ export default connect(
   dispatch => ({
     userActions: bindActionCreators(userActions, dispatch)
   })
-)(withStyles(styles)(HomeCntr));
+)(HomeCntr);

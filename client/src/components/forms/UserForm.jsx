@@ -28,18 +28,18 @@ class UserForm extends PureComponent {
   };
 
   render() {
-    const { email, nameFirst, nameFamily, className } = this.props;
+    const { email = '', nameFirst = '', nameFamily = '' } = this.state;
     return (
-      <form className={className} onSubmit={this.onSubmit}>
+      <form onSubmit={this.onSubmit}>
         <TextField
-          autoComplete="family-name"
+          autoComplete="given-name"
           fullWidth
           label="First Name"
           value={nameFirst}
           onChange={this.handleChange('nameFirst')}
         />
         <TextField
-          autoComplete="given-name"
+          autoComplete="family-name"
           fullWidth
           label="Last Name"
           value={nameFamily}

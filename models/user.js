@@ -6,6 +6,7 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'company'
   },
+  companyAccepted: Boolean,
   created: Date,
   edited: Date,
   email: String,
