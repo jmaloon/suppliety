@@ -10,8 +10,8 @@ class UserForm extends PureComponent {
 
   getInitialState(props) {
     if (props && props.auth) {
-      const { _id, nameFirst, nameFamily, email } = props.auth;
-      return { _id, nameFirst, nameFamily, email };
+      const { _id, nameFirst, nameLast, email } = props.auth;
+      return { _id, nameFirst, nameLast, email };
     }
     return {};
   }
@@ -28,7 +28,7 @@ class UserForm extends PureComponent {
   };
 
   render() {
-    const { email = '', nameFirst = '', nameFamily = '' } = this.state;
+    const { email = '', nameFirst = '', nameLast = '' } = this.state;
     return (
       <form onSubmit={this.onSubmit}>
         <TextField
@@ -42,8 +42,8 @@ class UserForm extends PureComponent {
           autoComplete="family-name"
           fullWidth
           label="Last Name"
-          value={nameFamily}
-          onChange={this.handleChange('nameFamily')}
+          value={nameLast}
+          onChange={this.handleChange('nameLast')}
         />
         <TextField
           autoComplete="email"

@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import HomeLayout from 'components/layouts/HomeLayout';
 
 import * as userActions from 'actions/UserActions';
+import * as companyActions from 'actions/CompanyActions';
 
 class HomeCntr extends Component {
   onUserSubmit = userData => {
@@ -12,8 +13,7 @@ class HomeCntr extends Component {
   };
 
   onUserCompanySubmit = companyData => {
-    // this.props.userActions.updateUser(companyData);
-    console.log(companyData);
+    this.props.companyActions.createCompany(companyData);
   };
 
   render() {
@@ -30,10 +30,12 @@ class HomeCntr extends Component {
 }
 
 export default connect(
-  ({ auth }) => ({
-    auth: auth
+  ({ auth, companies }) => ({
+    auth,
+    companies
   }),
   dispatch => ({
-    userActions: bindActionCreators(userActions, dispatch)
+    userActions: bindActionCreators(userActions, dispatch),
+    companyActions: bindActionCreators(companyActions, dispatch)
   })
 )(HomeCntr);

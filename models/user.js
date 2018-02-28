@@ -26,6 +26,15 @@ const UserSchema = new Schema({
   whatsApp: String
 });
 
+UserSchema.pre('save', function(next) {
+  Object.keys(this).forEach(key => {
+    if (typeof this[key] === 'string') {
+      this[key] = trim(this[key]);
+    }
+  });
+  next();
+});
+
 const User = mongoose.model('user', UserSchema);
 
 module.exports = User;
