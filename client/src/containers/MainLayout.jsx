@@ -25,11 +25,6 @@ class MainLayout extends Component {
   }
 }
 
-export default connect(
-  ({ auth }) => ({
-    auth: auth
-  }),
-  dispatch => ({
-    authActions: bindActionCreators(authActions, dispatch)
-  })
-)(MainLayout);
+export default connect(null, dispatch => ({
+  authActions: bindActionCreators(authActions, dispatch)
+}))(MainLayout);

@@ -5,6 +5,8 @@ import Typography from 'material-ui/Typography';
 
 const styles = theme => ({});
 
-export default withStyles(styles)(_ => (
-  <Typography variant="title">Suppliety</Typography>
+export default withStyles(styles)(({ className }) => (
+  <div className={className}>
+    <Typography variant="title">Suppliety</Typography>
+  </div>
 ));

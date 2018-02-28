@@ -7,12 +7,14 @@ const UserSchema = new Schema({
     ref: 'company'
   },
   created: Date,
+  edited: Date,
   email: String,
   googleId: String,
   image: String,
   lists: Object,
   mobile: String,
-  name: { type: String, default: 'New User' },
+  nameFirst: String,
+  nameLast: String,
   title: String,
   recentlyViewed: {
     type: Schema.Types.ObjectId,

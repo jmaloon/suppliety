@@ -21,11 +21,17 @@ passport.use(
       proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
-      User.findOrCreate({ googleId: profile.id }, function(err, user) {
-        return cb(err, user);
-      });
-
-      done(null, user);
+      try {
+        const existingUser = await User.findOne({ googleId: profile.id });
+        if (existingUser) return done(null, existingUser);
+        const newUser = await new User({
+          googleId: profile.id,
+          created: Date.now()
+        }).save();
+        done(null, newUser);
+      } catch (err) {
+        done(err);
+      }
     }
   )
 );
