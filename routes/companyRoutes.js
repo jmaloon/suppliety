@@ -3,6 +3,15 @@ const User = require('../models/user');
 const loginRequired = require('../middlewares/loginRequired');
 
 module.exports = app => {
+  app.get('/api/company/count', async (req, res) => {
+    try {
+      const count = await Company.count({});
+      res.send({ count });
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  });
+
   app.post('/api/company/new', loginRequired, async (req, res) => {
     try {
       const { user } = req;
@@ -30,6 +39,19 @@ module.exports = app => {
       const { id } = req.params;
       const company = await Company.findById(id);
       res.send(company);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  });
+
+  app.get('/api/companies', async (req, res) => {
+    try {
+      const { limit, skip } = req.query;
+      const companies = await Company.find({})
+        .sort({ name: 1 })
+        .limit(parseInt(limit))
+        .skip(parseInt(skip));
+      res.send(companies);
     } catch (err) {
       res.status(400).send(err);
     }

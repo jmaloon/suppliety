@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Loader from 'components/Loader';
+import Loader from 'components/my-elements/Loader';
 
 import * as companyActions from 'actions/CompanyActions';
 
@@ -40,7 +40,7 @@ class FetchCompany extends Component {
 
 export default connect(
   ({ companies }, { companyId }) => ({
-    company: companies[companyId]
+    company: companies.companies[companyId]
   }),
   dispatch => ({
     companyActions: bindActionCreators(companyActions, dispatch)

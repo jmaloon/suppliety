@@ -7,10 +7,12 @@ import AppBar from 'containers/AppBar';
 import HomeCntr from 'containers/HomeCntr';
 
 import * as authActions from 'actions/AuthActions';
+import * as companyActions from 'actions/CompanyActions';
 
 class MainLayout extends Component {
   componentDidMount() {
     this.props.authActions.fetchUser();
+    this.props.companyActions.getCount();
   }
 
   render() {
@@ -26,5 +28,6 @@ class MainLayout extends Component {
 }
 
 export default connect(null, dispatch => ({
-  authActions: bindActionCreators(authActions, dispatch)
+  authActions: bindActionCreators(authActions, dispatch),
+  companyActions: bindActionCreators(companyActions, dispatch)
 }))(MainLayout);

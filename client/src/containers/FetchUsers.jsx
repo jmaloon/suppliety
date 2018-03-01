@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Loader from 'components/Loader';
+import Loader from 'components/my-elements/Loader';
 
 import * as userActions from 'actions/UserActions';
 
