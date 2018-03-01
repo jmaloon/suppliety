@@ -2,7 +2,7 @@ import types from 'constants/UserActionTypes';
 
 export default function(state = {}, action) {
   switch (action.type) {
-    case types.INSERT_USER:
+    case types.FETCH_USER:
       return {
         ...state,
         [action.payload._id]: {
@@ -10,7 +10,7 @@ export default function(state = {}, action) {
           status: { success: true }
         }
       };
-    case types.INSERT_USERS:
+    case types.FETCH_USERS:
       const newUsers = {};
       action.payload.forEach(user => (newUsers[user._id] = user));
       return {

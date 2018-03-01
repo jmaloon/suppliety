@@ -28,7 +28,8 @@ module.exports = app => {
 
       await company.save();
       await user.save();
-      res.send([company, user]);
+      const newUser = await User.findById(user._id);
+      res.send([company, newUser]);
     } catch (err) {
       res.status(400).send(err);
     }
@@ -52,6 +53,28 @@ module.exports = app => {
         .limit(parseInt(limit))
         .skip(parseInt(skip));
       res.send(companies);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  });
+
+  app.post('/api/company/join/:id', loginRequired, async (req, res) => {
+    try {
+      const { user } = req;
+      const { id } = req.params;
+      if (!!user.company)
+        throw Error('User can only be associated with one company');
+      const company = await Company.findById(id);
+
+      company.joinRequests.push(user);
+      user.company = company;
+      user.role = 'staff';
+      user.companyAccepted = false;
+
+      await company.save();
+      await user.save();
+      const newUser = await User.findById(user._id);
+      res.send([company, newUser]);
     } catch (err) {
       res.status(400).send(err);
     }

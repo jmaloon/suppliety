@@ -10,7 +10,7 @@ export const updateUser = user => async dispatch => {
       payload: res.data
     });
     dispatch({
-      type: types.INSERT_USER,
+      type: types.FETCH_USER,
       payload: res.data
     });
   } catch (err) {
@@ -23,7 +23,7 @@ export const fetchUsers = userIds => async dispatch => {
   try {
     const res = await axios.post('api/users/', { ids: userIds });
     dispatch({
-      type: types.INSERT_USERS,
+      type: types.FETCH_USERS,
       payload: res.data
     });
   } catch (err) {

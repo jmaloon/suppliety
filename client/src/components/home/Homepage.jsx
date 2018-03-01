@@ -24,7 +24,7 @@ export default withStyles(styles)(({ auth, company }) => {
         </Typography> */}
         {auth &&
           auth.company && (
-            <FetchCompany companyId={auth.company.toString()}>
+            <FetchCompany companyId={auth.company}>
               {c => (
                 <Fragment>
                   <CompanyCard company={c} />

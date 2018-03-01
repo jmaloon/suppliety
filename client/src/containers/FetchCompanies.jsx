@@ -41,7 +41,7 @@ class FetchCompanies extends Component {
   render() {
     const { loaded, count } = this.props;
     const { companies, fetching } = this.state;
-    if (companies.length) {
+    if (companies.length || !count) {
       return this.props.children(companies, fetching, loaded === count);
     }
     return <Loader />;

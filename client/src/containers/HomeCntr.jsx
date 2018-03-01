@@ -8,18 +8,16 @@ import * as userActions from 'actions/UserActions';
 import * as companyActions from 'actions/CompanyActions';
 
 class HomeCntr extends Component {
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.props.auth !== nextProps.auth) {
-  //     debugger;
-  //   }
-  // }
-
   onUserSubmit = userData => {
     this.props.userActions.updateUser(userData);
   };
 
-  onUserCompanySubmit = companyData => {
+  onUserCompanyCreate = companyData => {
     this.props.companyActions.createCompany(companyData);
+  };
+
+  onUserCompanySelect = companyId => {
+    this.props.companyActions.joinCompanyRequest(companyId);
   };
 
   render() {
@@ -29,7 +27,8 @@ class HomeCntr extends Component {
       <HomeLayout
         auth={auth}
         onUserSubmit={this.onUserSubmit}
-        onUserCompanySubmit={this.onUserCompanySubmit}
+        onUserCompanyCreate={this.onUserCompanyCreate}
+        onUserCompanySelect={this.onUserCompanySelect}
       />
     );
   }

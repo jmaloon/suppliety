@@ -9,6 +9,7 @@ const CompanySchema = new Schema({
   created: Date,
   facebook: String,
   instagram: String,
+  joinRequests: [{ type: Schema.Types.ObjectId, ref: 'user' }],
   name: {
     type: String,
     required: true

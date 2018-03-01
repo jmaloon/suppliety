@@ -19,7 +19,7 @@ export default function(state = initialState, action) {
           count
         }
       };
-    case types.INSERT_COMPANY:
+    case types.FETCH_COMPANY:
       return {
         ...state,
         status: {
@@ -32,7 +32,7 @@ export default function(state = initialState, action) {
           [action.payload._id]: action.payload
         }
       };
-    case types.INSERT_COMPANIES:
+    case types.FETCH_COMPANIES:
       const newCompanies = {};
       action.payload.forEach(key => (newCompanies[key._id] = key));
       return {

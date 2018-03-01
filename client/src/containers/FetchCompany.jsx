@@ -15,6 +15,7 @@ class FetchCompany extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.fetchCompany(nextProps);
+    // debugger;
     if (
       this.props.companyId !== nextProps.companyId ||
       this.props.company !== nextProps.company
@@ -24,6 +25,7 @@ class FetchCompany extends Component {
   }
 
   fetchCompany({ company, companyActions, companyId }) {
+    // debugger;
     if (!company && this.state.fetching !== companyId) {
       this.setState({ fetching: companyId });
       companyActions.fetchCompany(companyId);
