@@ -4,6 +4,7 @@ import FetchCompany from 'containers/FetchCompany';
 import FetchUsers from 'containers/FetchUsers';
 import Typography from 'material-ui/Typography';
 import CompanyCard from 'components/CompanyCard';
+import UserCard from 'components/UserCard';
 import { withStyles } from 'theme/utils';
 
 // import userAvatar from 'assets/images/user-default.svg';
@@ -28,7 +29,9 @@ export default withStyles(styles)(({ auth, company }) => {
                 <Fragment>
                   <CompanyCard company={c} />
                   <FetchUsers userIds={c.accounts}>
-                    {users => <Typography>Users loaded</Typography>}
+                    {users =>
+                      users.map(u => <UserCard key={u._id} paper user={u} />)
+                    }
                   </FetchUsers>
                 </Fragment>
               )}

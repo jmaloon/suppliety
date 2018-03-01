@@ -6,7 +6,7 @@ export const updateUser = user => async dispatch => {
   try {
     const res = await axios.patch(`/api/user/${user._id}`, user);
     dispatch({
-      type: authTypes.FETCH_USER,
+      type: authTypes.AUTH_FETCH_USER,
       payload: res.data
     });
     dispatch({
