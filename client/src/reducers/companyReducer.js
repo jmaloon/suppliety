@@ -5,7 +5,10 @@ export default function(state = {}, action) {
     case types.INSERT_COMPANY:
       return {
         ...state,
-        [action.payload._id]: action.payload
+        [action.payload._id]: {
+          ...action.payload,
+          status: true
+        }
       };
     default:
       return state;

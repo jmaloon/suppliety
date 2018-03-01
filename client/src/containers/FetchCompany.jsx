@@ -6,33 +6,27 @@ import Loader from 'components/Loader';
 
 import * as companyActions from 'actions/CompanyActions';
 
-class CompanyCntr extends Component {
-  state = this.getCompany(this.props);
+class FetchCompany extends Component {
+  state = { company: this.props.company };
 
-  getCompany({ company, companyId }) {
-    return { company };
-  }
   componentDidMount() {
     this.fetchCompany(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
     this.fetchCompany(nextProps);
-    if (this.props.companyId !== nextProps.companyId) {
-      this.setState(this.getCompany(nextProps));
-    }
-    if (this.props.fetchStatus !== nextProps.fetchStatus) {
-      this.setState({ fetching: false });
+    if (
+      this.props.companyId !== nextProps.companyId ||
+      this.props.company !== nextProps.company
+    ) {
+      this.setState({ company: nextProps.company });
     }
   }
 
-  fetchCompany({ company, companyActions, companyId, params }) {
-    if (company) {
-      return this.setState({ company });
-    }
+  fetchCompany({ company, companyActions, companyId }) {
     if (!company && this.state.fetching !== companyId) {
       this.setState({ fetching: companyId });
-      companyActions.fetchCompany(companyId, params);
+      companyActions.fetchCompany(companyId);
     }
   }
   render() {
@@ -46,10 +40,9 @@ class CompanyCntr extends Component {
 
 export default connect(
   ({ companies }, { companyId }) => ({
-    company: companies[companyId],
-    fetchStatus: companies[companyId] && companies[companyId].status
+    company: companies[companyId]
   }),
   dispatch => ({
     companyActions: bindActionCreators(companyActions, dispatch)
   })
-)(CompanyCntr);
+)(FetchCompany);

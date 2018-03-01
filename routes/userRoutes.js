@@ -15,7 +15,17 @@ module.exports = app => {
       const user = await User.findByIdAndUpdate(id, body, { new: true });
       res.send(user);
     } catch (err) {
-      res.status(400).send(id);
+      res.status(400).send(err);
+    }
+  });
+
+  app.post('/api/users', async (req, res) => {
+    try {
+      const { ids } = req.body;
+      const users = await User.find({ _id: { $in: ids } });
+      res.send(users);
+    } catch (err) {
+      res.status(400).send(err);
     }
   });
 };

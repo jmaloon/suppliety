@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 
-import CompanyCntr from 'containers/CompanyCntr';
+import FetchCompany from 'containers/FetchCompany';
+import FetchUsers from 'containers/FetchUsers';
 import Typography from 'material-ui/Typography';
 import CompanyCard from 'components/CompanyCard';
 import { withStyles } from 'theme/utils';
@@ -22,9 +23,16 @@ export default withStyles(styles)(({ auth, company }) => {
         </Typography> */}
         {auth &&
           auth.company && (
-            <CompanyCntr companyId={auth.company.toString()}>
-              {c => <CompanyCard company={c} />}
-            </CompanyCntr>
+            <FetchCompany companyId={auth.company.toString()}>
+              {c => (
+                <Fragment>
+                  <CompanyCard company={c} />
+                  <FetchUsers userIds={c.accounts}>
+                    {users => <Typography>Users loaded</Typography>}
+                  </FetchUsers>
+                </Fragment>
+              )}
+            </FetchCompany>
           )}
       </Fragment>
     );
