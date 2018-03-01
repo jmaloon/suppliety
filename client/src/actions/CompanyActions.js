@@ -5,9 +5,8 @@ import authTypes from 'constants/AuthActionTypes';
 export const createCompany = company => async dispatch => {
   try {
     const res = await axios.post('/api/company/new', company);
-    // console.log(res);
     dispatch({
-      type: types.CREATE_COMPANY,
+      type: types.INSERT_COMPANY,
       payload: res.data[0]
     });
     dispatch({
@@ -16,6 +15,18 @@ export const createCompany = company => async dispatch => {
     });
   } catch (err) {
     console.log('Error creating company');
+    console.log(err);
+  }
+};
+
+export const fetchCompany = id => async dispatch => {
+  try {
+    const res = await axios.get(`/api/company/${id}`);
+    dispatch({
+      type: types.INSERT_COMPANY,
+      payload: res.data
+    });
+  } catch (err) {
     console.log(err);
   }
 };

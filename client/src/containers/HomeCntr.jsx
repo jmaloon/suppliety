@@ -8,6 +8,12 @@ import * as userActions from 'actions/UserActions';
 import * as companyActions from 'actions/CompanyActions';
 
 class HomeCntr extends Component {
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.auth !== nextProps.auth) {
+  //     debugger;
+  //   }
+  // }
+
   onUserSubmit = userData => {
     this.props.userActions.updateUser(userData);
   };
@@ -31,8 +37,7 @@ class HomeCntr extends Component {
 
 export default connect(
   ({ auth, companies }) => ({
-    auth,
-    companies
+    auth
   }),
   dispatch => ({
     userActions: bindActionCreators(userActions, dispatch),
