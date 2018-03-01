@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import CompanyCntr from 'containers/CompanyCntr';
 import Typography from 'material-ui/Typography';
-import CompanyPaper from 'components/CompanyPaper';
+import CompanyCard from 'components/CompanyCard';
 import { withStyles } from 'theme/utils';
 
 // import userAvatar from 'assets/images/user-default.svg';
@@ -13,17 +13,17 @@ export default withStyles(styles)(({ auth, company }) => {
   if (auth) {
     return (
       <Fragment>
-        <Typography variant="display1">
+        {/* <Typography variant="display1">
           {`Welcome${
             auth.nameFirst
               ? auth.nameFirst.padStart(auth.nameFirst.length + 2, ', ')
               : ''
           }`}
-        </Typography>
+        </Typography> */}
         {auth &&
           auth.company && (
             <CompanyCntr companyId={auth.company.toString()}>
-              {c => <CompanyPaper company={c} />}
+              {c => <CompanyCard company={c} />}
             </CompanyCntr>
           )}
       </Fragment>
