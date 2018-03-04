@@ -9,6 +9,7 @@ import * as companyActions from 'actions/CompanyActions';
 
 class HomeCntr extends Component {
   onUserSubmit = userData => {
+    console.log(userData);
     this.props.userActions.updateUser(userData);
   };
 

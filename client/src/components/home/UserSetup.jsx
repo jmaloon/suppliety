@@ -5,11 +5,11 @@ import { withStyles } from 'theme/utils';
 
 const styles = theme => ({});
 
-export default withStyles(styles)(({ auth, onSubmit }) => (
+export default withStyles(styles)(({ currentUser, onSubmit }) => (
   <Fragment>
     <Typography variant="display1">
       Welcome, please edit your profile before continuing
     </Typography>
-    <UserForm auth={auth} onSubmit={onSubmit} />
+    <UserForm currentUser={currentUser} onSubmit={onSubmit} />
   </Fragment>
 ));

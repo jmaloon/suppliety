@@ -20,7 +20,7 @@ export const createCompany = company => async dispatch => {
     const res = await axios.post('/api/company/new', company);
     console.log(res.data);
     dispatch({
-      type: types.FETCH_COMPANY,
+      type: types.CREATE_COMPANY,
       payload: res.data[0]
     });
     dispatch({

@@ -12,10 +12,10 @@ export default class ConnectionsHome extends PureComponent {
     return (
       <Fragment>
         {currentUser.admin && (
-          <Fragment>
-            <Typography variant="display1">Company Connections</Typography>
-            <FetchCompanies companyIds={[currentUser.company]}>
-              {userCompany => (
+          <FetchCompanies companyIds={[currentUser.company]}>
+            {userCompany => (
+              <Fragment>
+                <Typography variant="display1">Company Connections</Typography>
                 <FetchCompanies companyIds={userCompany[0].connections}>
                   {companies =>
                     companies.map(company => (
@@ -23,9 +23,17 @@ export default class ConnectionsHome extends PureComponent {
                     ))
                   }
                 </FetchCompanies>
-              )}
-            </FetchCompanies>
-          </Fragment>
+                <Typography variant="display1">
+                  Join Company Requests
+                </Typography>
+                <FetchUsers userIds={userCompany[0].accountRequests}>
+                  {users =>
+                    users.map(u => <UserCard key={u._id} paper user={u} />)
+                  }
+                </FetchUsers>
+              </Fragment>
+            )}
+          </FetchCompanies>
         )}
         <Typography variant="display1">Connections</Typography>
         <FetchUsers userIds={currentUser.connections}>
@@ -43,34 +51,5 @@ export default class ConnectionsHome extends PureComponent {
         </FetchUsers>
       </Fragment>
     );
-    //
-    // const connections = currentUser
-    //   ? currentUser.connections
-    //   : company.connections;
-    // const sent = currentUser
-    //   ? currentUser.connectionRequestsSent
-    //   : company.connectionRequestsSent;
-    // const received = currentUser
-    //   ? currentUser.connectionRequestsReceived
-    //   : company.connectionRequestsReceived;
-    //
-    // return (
-    //   <Fragment>
-    //     <Typography variant="display1">All Connections</Typography>
-    //     <FetchUsers userIds={connections}>
-    //       {users => users.map(u => <UserCard key={u._id} paper user={u} />)}
-    //     </FetchUsers>
-    //
-    //     <Typography variant="display1">Requests Sent</Typography>
-    //     <FetchUsers userIds={sent}>
-    //       {users => users.map(u => <UserCard key={u._id} paper user={u} />)}
-    //     </FetchUsers>
-    //
-    //     <Typography variant="display1">Requests Received</Typography>
-    //     <FetchUsers userIds={received}>
-    //       {users => users.map(u => <UserCard key={u._id} paper user={u} />)}
-    //     </FetchUsers>
-    //   </Fragment>
-    // );
   }
 }

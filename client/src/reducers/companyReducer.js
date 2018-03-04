@@ -19,13 +19,27 @@ export default function(state = initialState, action) {
           count
         }
       };
-    case types.FETCH_COMPANY:
+    case types.CREATE_COMPANY:
       return {
         ...state,
         status: {
           ...state.status,
           count: state.status.count + 1,
           loaded: state.status.loaded + 1
+        },
+        companies: {
+          ...state.companies,
+          [action.payload._id]: action.payload
+        }
+      };
+    case types.FETCH_COMPANY:
+      return {
+        ...state,
+        status: {
+          ...state.status,
+          loaded: !!state.companies[action.payload._id]
+            ? state.status.loaded
+            : state.status.loaded + 1
         },
         companies: {
           ...state.companies,
