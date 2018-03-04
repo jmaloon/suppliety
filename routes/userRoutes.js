@@ -3,11 +3,14 @@ const User = require('../models/user');
 module.exports = app => {
   app.patch('/api/user/:id', async (req, res) => {
     const { id } = req.params;
-    const { nameFirst, nameLast, email } = req.body;
+    const { nameFirst, nameLast, email, phone, title, whatsApp } = req.body;
     const body = {
       nameFirst,
       nameLast,
       email,
+      phone,
+      title,
+      whatsApp,
       edited: Date.now()
     };
 

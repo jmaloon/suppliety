@@ -10,8 +10,16 @@ class UserForm extends PureComponent {
 
   getInitialState(props) {
     if (props && props.auth) {
-      const { _id, nameFirst, nameLast, email } = props.auth;
-      return { _id, nameFirst, nameLast, email };
+      const {
+        _id,
+        nameFirst,
+        nameLast,
+        email,
+        phone,
+        title,
+        whatsApp
+      } = props.auth;
+      return { _id, nameFirst, nameLast, email, phone, title, whatsApp };
     }
     return {};
   }
@@ -28,7 +36,14 @@ class UserForm extends PureComponent {
   };
 
   render() {
-    const { email = '', nameFirst = '', nameLast = '' } = this.state;
+    const {
+      email = '',
+      nameFirst = '',
+      nameLast = '',
+      phone = '',
+      title = '',
+      whatsApp = ''
+    } = this.state;
     return (
       <form onSubmit={this.onSubmit}>
         <TextField
@@ -46,11 +61,32 @@ class UserForm extends PureComponent {
           onChange={this.handleChange('nameLast')}
         />
         <TextField
+          autoComplete="title"
+          fullWidth
+          label="Job Title"
+          value={title}
+          onChange={this.handleChange('title')}
+        />
+        <TextField
           autoComplete="email"
           fullWidth
           label="Email"
           value={email}
           onChange={this.handleChange('email')}
+        />
+        <TextField
+          autoComplete="phone"
+          fullWidth
+          label="Phone"
+          value={phone}
+          onChange={this.handleChange('phone')}
+        />
+        <TextField
+          autoComplete="whatsApp"
+          fullWidth
+          label="WhatsApp"
+          value={whatsApp}
+          onChange={this.handleChange('whatsApp')}
         />
         <Button type="submit" onClick={this.onSubmit}>
           Done

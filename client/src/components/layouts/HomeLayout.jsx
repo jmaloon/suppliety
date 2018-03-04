@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Homepage from 'components/home/Homepage';
+import { HomepageCompany, HomepageVisitor } from 'components/home/Homepage';
 import UserSetup from 'components/home/UserSetup';
 import UserCompanySetup from 'components/home/UserCompanySetup';
 // import Typography from 'material-ui/Typography';
@@ -44,7 +44,9 @@ class HomeLayout extends Component {
       onUserCompanySelect
     } = this.props;
     const common = { auth };
-    if (!auth) return <Homepage {...common} />;
+
+    if (!auth) return <HomepageVisitor {...common} />;
+
     return !auth.edited ? (
       <UserSetup {...common} onSubmit={onUserSubmit} />
     ) : !auth.company ? (
@@ -54,7 +56,7 @@ class HomeLayout extends Component {
         onUserCompanySelect={onUserCompanySelect}
       />
     ) : (
-      <Homepage {...common} />
+      <HomepageCompany {...common} />
     );
   }
 }

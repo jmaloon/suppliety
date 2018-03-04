@@ -26,7 +26,7 @@ class CompanyCard extends PureComponent {
 
   renderContent() {
     const { company } = this.props;
-    console.log(company);
+
     return (
       <Fragment>
         <img src={company.image || companyDefault} alt="company logo" />

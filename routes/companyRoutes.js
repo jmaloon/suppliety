@@ -28,8 +28,9 @@ module.exports = app => {
 
       await company.save();
       await user.save();
+      const newCompany = await Company.findById(company._id);
       const newUser = await User.findById(user._id);
-      res.send([company, newUser]);
+      res.send([newCompany, newUser]);
     } catch (err) {
       res.status(400).send(err);
     }
@@ -73,8 +74,9 @@ module.exports = app => {
 
       await company.save();
       await user.save();
+      const newCompany = await Company.findById(company._id);
       const newUser = await User.findById(user._id);
-      res.send([company, newUser]);
+      res.send([newCompany, newUser]);
     } catch (err) {
       res.status(400).send(err);
     }

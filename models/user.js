@@ -2,25 +2,22 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  company: {
-    type: Schema.Types.ObjectId,
-    ref: 'company'
-  },
+  company: { type: Schema.Types.ObjectId, ref: 'company' },
   companyAccepted: Boolean,
+  connections: [{ type: Schema.Types.ObjectId, ref: 'user' }],
+  connectionRequestsSent: [{ type: Schema.Types.ObjectId, ref: 'user' }],
+  connectionRequestsReceived: [{ type: Schema.Types.ObjectId, ref: 'user' }],
   created: Date,
   edited: Date,
   email: String,
   googleId: String,
   image: String,
   lists: Object,
-  mobile: String,
   nameFirst: String,
   nameLast: String,
+  phone: String,
   title: String,
-  recentlyViewed: {
-    type: Schema.Types.ObjectId,
-    ref: 'product'
-  },
+  recentlyViewed: [{ type: Schema.Types.ObjectId, ref: 'product' }],
   role: String,
   visibility: Boolean,
   whatsApp: String

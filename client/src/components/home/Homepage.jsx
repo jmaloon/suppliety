@@ -1,48 +1,45 @@
-import React, { Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 
-import FetchCompany from 'containers/FetchCompany';
-import FetchUsers from 'containers/FetchUsers';
 import Typography from 'material-ui/Typography';
-import CompanyCard from 'components/CompanyCard';
-import UserCard from 'components/UserCard';
+import Tabs, { Tab } from 'material-ui/Tabs';
+import CompanyHome from 'components/home/CompanyHome';
+import ProductsHome from 'components/home/ProductsHome';
+import ConnectionsHome from 'components/home/ConnectionsHome';
 import { withStyles } from 'theme/utils';
-
-// import userAvatar from 'assets/images/user-default.svg';
 
 const styles = theme => ({});
 
-export default withStyles(styles)(({ auth, company }) => {
-  if (auth) {
+export const HomepageCompany = class extends PureComponent {
+  state = {};
+  render() {
+    const { auth } = this.props;
+    const { tab = 0 } = this.state;
+
     return (
       <Fragment>
-        {/* <Typography variant="display1">
-          {`Welcome${
-            auth.nameFirst
-              ? auth.nameFirst.padStart(auth.nameFirst.length + 2, ', ')
-              : ''
-          }`}
-        </Typography> */}
-        {auth &&
-          auth.company && (
-            <FetchCompany companyId={auth.company}>
-              {c => (
-                <Fragment>
-                  <CompanyCard company={c} />
-                  <FetchUsers userIds={c.accounts}>
-                    {users =>
-                      users.map(u => <UserCard key={u._id} paper user={u} />)
-                    }
-                  </FetchUsers>
-                </Fragment>
-              )}
-            </FetchCompany>
-          )}
+        <Tabs
+          value={tab}
+          onChange={(e, tab) => this.setState({ tab })}
+          indicatorColor="secondary"
+          textColor="secondary"
+          centered
+          fullWidth
+        >
+          <Tab label="Company" />
+          <Tab label="Products" />
+          <Tab label="Connections" />
+        </Tabs>
+
+        {tab === 0 && <CompanyHome auth={auth} />}
+        {tab === 1 && <ProductsHome auth={auth} />}
+        {tab === 2 && <ConnectionsHome auth={auth} />}
       </Fragment>
     );
   }
-  return (
-    <Fragment>
-      <Typography variant="display1">Welcome</Typography>
-    </Fragment>
-  );
-});
+};
+
+export const HomepageVisitor = withStyles(styles)(({ auth }) => (
+  <Fragment>
+    <Typography variant="display1">Welcome</Typography>
+  </Fragment>
+));
