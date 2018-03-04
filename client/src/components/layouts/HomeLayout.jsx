@@ -38,18 +38,18 @@ class HomeLayout extends Component {
 
   getContent() {
     const {
-      auth,
+      currentUser,
       onUserSubmit,
       onUserCompanyCreate,
       onUserCompanySelect
     } = this.props;
-    const common = { auth };
+    const common = { currentUser };
 
-    if (!auth) return <HomepageVisitor {...common} />;
+    if (!currentUser) return <HomepageVisitor {...common} />;
 
-    return !auth.edited ? (
+    return !currentUser.edited ? (
       <UserSetup {...common} onSubmit={onUserSubmit} />
-    ) : !auth.company ? (
+    ) : !currentUser.company ? (
       <UserCompanySetup
         {...common}
         onUserCompanyCreate={onUserCompanyCreate}

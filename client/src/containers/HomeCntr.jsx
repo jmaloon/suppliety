@@ -21,11 +21,11 @@ class HomeCntr extends Component {
   };
 
   render() {
-    const { auth } = this.props;
+    const { currentUser } = this.props;
 
     return (
       <HomeLayout
-        auth={auth}
+        currentUser={currentUser}
         onUserSubmit={this.onUserSubmit}
         onUserCompanyCreate={this.onUserCompanyCreate}
         onUserCompanySelect={this.onUserCompanySelect}
@@ -35,8 +35,8 @@ class HomeCntr extends Component {
 }
 
 export default connect(
-  ({ auth, companies }) => ({
-    auth
+  ({ auth }) => ({
+    currentUser: auth
   }),
   dispatch => ({
     userActions: bindActionCreators(userActions, dispatch),

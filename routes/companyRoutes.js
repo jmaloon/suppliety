@@ -23,7 +23,7 @@ module.exports = app => {
       });
       company.accounts.push(user);
       user.company = company;
-      user.role = 'admin';
+      user.admin = true;
       user.companyAccepted = true;
 
       await company.save();
@@ -41,6 +41,16 @@ module.exports = app => {
       const { id } = req.params;
       const company = await Company.findById(id);
       res.send(company);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  });
+
+  app.post('/api/companies', async (req, res) => {
+    try {
+      const { ids } = req.body;
+      const companies = await Company.find({ _id: { $in: ids } });
+      res.send(companies);
     } catch (err) {
       res.status(400).send(err);
     }
@@ -67,9 +77,9 @@ module.exports = app => {
         throw Error('User can only be associated with one company');
       const company = await Company.findById(id);
 
-      company.joinRequests.push(user);
+      company.accountRequests.push(user);
       user.company = company;
-      user.role = 'staff';
+      user.admin = false;
       user.companyAccepted = false;
 
       await company.save();

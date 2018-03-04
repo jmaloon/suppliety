@@ -34,7 +34,7 @@ export default function(state = initialState, action) {
       };
     case types.FETCH_COMPANIES:
       const newCompanies = {};
-      action.payload.forEach(key => (newCompanies[key._id] = key));
+      action.payload.forEach(company => (newCompanies[company._id] = company));
       return {
         ...state,
         status: {

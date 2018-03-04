@@ -9,9 +9,8 @@ import * as companyActions from 'actions/CompanyActions';
 class FetchCompanies extends Component {
   state = { companies: this.getCompanies(this.props) };
 
-  getCompanies(props) {
-    const { companies } = props;
-    return Object.values(companies);
+  getCompanies({ companies, fetchCompanyIds }) {
+    return !fetchCompanyIds.length && companies;
   }
 
   componentDidMount() {
@@ -19,8 +18,10 @@ class FetchCompanies extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.fetchCompanies(nextProps);
-    if (this.props.loaded !== nextProps.loaded) {
+    if (this.props.companyIds !== nextProps.companyIds) {
+      this.fetchCompanies(nextProps);
+    }
+    if (this.props.fetchCompanyIds !== nextProps.fetchCompanyIds) {
       this.setState({
         fetching: false,
         companies: this.getCompanies(nextProps)
@@ -28,31 +29,29 @@ class FetchCompanies extends Component {
     }
   }
 
-  fetchCompanies({ companyActions, loaded, count, params }) {
-    const requested = params.skip + params.limit;
-    if (loaded !== count && requested > loaded && !this.state.fetching) {
-      this.setState({ fetching: true });
-      if (requested > count) {
-        params.limit = count - params.skip;
-      }
-      companyActions.fetchCompanies(params);
+  fetchCompanies({ companies, companyActions, companyIds, fetchCompanyIds }) {
+    if (!!fetchCompanyIds.length && this.state.fetching !== fetchCompanyIds) {
+      this.setState({ fetching: fetchCompanyIds });
+      companyActions.fetchCompanies(fetchCompanyIds);
     }
   }
   render() {
-    const { loaded, count } = this.props;
-    const { companies, fetching } = this.state;
-    if (companies.length || !count) {
-      return this.props.children(companies, fetching, loaded === count);
+    const { companyIds } = this.props;
+    const { companies } = this.state;
+    if (!companyIds.length) {
+      return 'There are no companies to show here';
+    }
+    if (companies) {
+      return this.props.children(companies);
     }
     return <Loader />;
   }
 }
 
 export default connect(
-  ({ companies }) => ({
-    companies: companies.companies,
-    loaded: companies.status.loaded,
-    count: companies.status.count
+  ({ companies }, { companyIds }) => ({
+    companies: companyIds.map(id => companies.companies[id]),
+    fetchCompanyIds: companyIds.filter(id => !companies.companies[id])
   }),
   dispatch => ({
     companyActions: bindActionCreators(companyActions, dispatch)

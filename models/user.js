@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
+  admin: Boolean,
   company: { type: Schema.Types.ObjectId, ref: 'company' },
   companyAccepted: Boolean,
   connections: [{ type: Schema.Types.ObjectId, ref: 'user' }],
@@ -18,7 +19,6 @@ const UserSchema = new Schema({
   phone: String,
   title: String,
   recentlyViewed: [{ type: Schema.Types.ObjectId, ref: 'product' }],
-  role: String,
   visibility: Boolean,
   whatsApp: String
 });

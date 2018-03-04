@@ -5,14 +5,11 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 import CompanyHome from 'components/home/CompanyHome';
 import ProductsHome from 'components/home/ProductsHome';
 import ConnectionsHome from 'components/home/ConnectionsHome';
-import { withStyles } from 'theme/utils';
-
-const styles = theme => ({});
 
 export const HomepageCompany = class extends PureComponent {
   state = {};
   render() {
-    const { auth } = this.props;
+    const { currentUser } = this.props;
     const { tab = 0 } = this.state;
 
     return (
@@ -30,16 +27,21 @@ export const HomepageCompany = class extends PureComponent {
           <Tab label="Connections" />
         </Tabs>
 
-        {tab === 0 && <CompanyHome auth={auth} />}
-        {tab === 1 && <ProductsHome auth={auth} />}
-        {tab === 2 && <ConnectionsHome auth={auth} />}
+        {tab === 0 && <CompanyHome currentUser={currentUser} />}
+        {tab === 1 && <ProductsHome currentUser={currentUser} />}
+        {tab === 2 && (
+          <ConnectionsHome
+            currentUser={currentUser}
+            company={currentUser.company}
+          />
+        )}
       </Fragment>
     );
   }
 };
 
-export const HomepageVisitor = withStyles(styles)(({ auth }) => (
+export const HomepageVisitor = () => (
   <Fragment>
     <Typography variant="display1">Welcome</Typography>
   </Fragment>
-));
+);

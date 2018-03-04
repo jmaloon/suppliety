@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
-import FetchCompanies from 'containers/FetchCompanies';
+import LoadCompanies from 'containers/LoadCompanies';
 import Typography from 'material-ui/Typography';
 import List, {
   ListItem,
@@ -25,7 +25,7 @@ export default class CompanySelect extends PureComponent {
     return (
       <Fragment>
         <Typography variant="title">Select a company to join</Typography>
-        <FetchCompanies params={{ limit, skip }}>
+        <LoadCompanies params={{ limit, skip }}>
           {(companies, loading, complete) => (
             <Fragment>
               <List>
@@ -61,7 +61,7 @@ export default class CompanySelect extends PureComponent {
               {loading && <Loader />}
             </Fragment>
           )}
-        </FetchCompanies>
+        </LoadCompanies>
         <Button disabled={!selected} onClick={this.onSubmit}>
           Done
         </Button>

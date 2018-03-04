@@ -9,7 +9,7 @@ class UserForm extends PureComponent {
   state = { ...this.getInitialState(this.props) };
 
   getInitialState(props) {
-    if (props && props.auth) {
+    if (props && props.currentUser) {
       const {
         _id,
         nameFirst,
@@ -18,7 +18,7 @@ class UserForm extends PureComponent {
         phone,
         title,
         whatsApp
-      } = props.auth;
+      } = props.currentUser;
       return { _id, nameFirst, nameLast, email, phone, title, whatsApp };
     }
     return {};

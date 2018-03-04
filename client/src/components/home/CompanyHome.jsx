@@ -6,9 +6,9 @@ import UserCard from 'components/UserCard';
 
 export default class CompanyHome extends PureComponent {
   render() {
-    const { auth } = this.props;
+    const { currentUser } = this.props;
     return (
-      <FetchCompany companyId={auth.company}>
+      <FetchCompany companyId={currentUser.company}>
         {c => (
           <Fragment>
             <CompanyCard company={c} />

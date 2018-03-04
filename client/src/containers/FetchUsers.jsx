@@ -18,12 +18,11 @@ class FetchUsers extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.fetchUsers(nextProps);
-    if (this.props.usersIds !== nextProps.userIds) {
-      this.setState({ users: this.getUsers(nextProps) });
+    if (this.props.userIds !== nextProps.userIds) {
+      this.fetchUsers(nextProps);
     }
     if (this.props.fetchUserIds !== nextProps.fetchUserIds) {
-      this.setState({ fetching: false });
+      this.setState({ fetching: false, users: this.getUsers(nextProps) });
     }
   }
 
@@ -34,7 +33,11 @@ class FetchUsers extends Component {
     }
   }
   render() {
+    const { userIds } = this.props;
     const { users } = this.state;
+    if (!userIds.length) {
+      return 'There are no users to show here';
+    }
     if (users) {
       return this.props.children(users);
     }
