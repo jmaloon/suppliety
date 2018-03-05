@@ -52,7 +52,7 @@ export const fetchCompany = id => async dispatch => {
 
 export const fetchCompanies = companyIds => async dispatch => {
   try {
-    const res = await axios.post('api/companies/', { ids: companyIds });
+    const res = await axios.post('/api/companies/', { ids: companyIds });
     dispatch({
       type: types.FETCH_COMPANIES,
       payload: res.data

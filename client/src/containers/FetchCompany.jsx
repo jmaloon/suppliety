@@ -25,7 +25,6 @@ class FetchCompany extends Component {
   }
 
   fetchCompany({ company, companyActions, companyId }) {
-    // debugger;
     if (!company && this.state.fetching !== companyId) {
       this.setState({ fetching: companyId });
       companyActions.fetchCompany(companyId);

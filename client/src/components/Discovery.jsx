@@ -27,7 +27,9 @@ export default class Discovery extends PureComponent {
         <Typography>Companies</Typography>
         {companies
           .sort(sortBy('created'))
-          .map(c => <CompanyCard key={c._id} company={c} />)}
+          .map(c => (
+            <CompanyCard key={c._id} company={c} to={`/company/${c._id}`} />
+          ))}
       </div>
     );
   }
