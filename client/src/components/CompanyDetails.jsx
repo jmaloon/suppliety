@@ -2,7 +2,6 @@ import React, { PureComponent, Fragment } from 'react';
 
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
 import { withStyles } from 'theme/utils';
 import Phone from 'mdi-material-ui/Phone';
 import Email from 'mdi-material-ui/Email';
@@ -62,11 +61,6 @@ class CompanyCard extends PureComponent {
         </section>
         <section>
           <Typography>{company.about}</Typography>
-        </section>
-        <section>
-          <Button color="primary" fullWidth>
-            + Connect
-          </Button>
         </section>
       </article>
     );
