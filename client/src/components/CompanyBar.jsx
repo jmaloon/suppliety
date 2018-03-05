@@ -1,5 +1,4 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Link } from 'react-router-dom';
 
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
@@ -10,9 +9,7 @@ import companyDefault from 'assets/images/company-default.svg';
 
 const styles = theme => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: 150
+    display: 'flex'
   }
 });
 
@@ -20,25 +17,28 @@ class CompanyCard extends PureComponent {
   state = {};
 
   render() {
-    const { classes, to } = this.props;
-    if (to) {
-      return (
-        <Link to={to}>
-          <article className={classes.root}>{this.renderContent()}</article>
-        </Link>
-      );
+    const { classes, paper } = this.props;
+    if (paper) {
+      return <Paper className={classes.root}>{this.renderContent()}</Paper>;
     }
-    return <article className={classes.root}>{this.renderContent()}</article>;
+    return <div className={classes.root}>{this.renderContent()}</div>;
   }
 
   renderContent() {
-    const { classes, company } = this.props;
-    console.log(company);
+    const { company } = this.props;
+
     return (
       <Fragment>
         <img src={company.image || companyDefault} alt="company logo" />
-        <Typography variant="body2">{company.name}</Typography>
-        <Typography>{company.about}</Typography>
+        <div>
+          <Typography variant="display1">{company.name}</Typography>
+          {company.phone && (
+            <Typography>
+              <Phone />
+              {company.phone}
+            </Typography>
+          )}
+        </div>
       </Fragment>
     );
   }

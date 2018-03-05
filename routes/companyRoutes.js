@@ -59,9 +59,9 @@ module.exports = app => {
 
   app.get('/api/companies', async (req, res) => {
     try {
-      const { limit, skip } = req.query;
+      const { limit, skip, sort } = req.query;
       const companies = await Company.find({})
-        .sort({ name: 1 })
+        .sort(sort || { name: 1 })
         .limit(parseInt(limit))
         .skip(parseInt(skip));
       res.send(companies);

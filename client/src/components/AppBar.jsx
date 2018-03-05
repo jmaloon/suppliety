@@ -3,6 +3,7 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
+import { Link } from 'react-router-dom';
 import { withStyles } from 'theme/utils';
 
 const styles = theme => ({
@@ -16,28 +17,29 @@ const styles = theme => ({
   padder: theme.mixins.toolbar
 });
 
-class AppBars extends PureComponent {
+class MyAppBar extends PureComponent {
   render() {
-    const { auth, classes } = this.props;
+    const { currentUser, classes } = this.props;
     return (
       <Fragment>
         <AppBar className={classes.root}>
           <Toolbar>
-            <Typography
-              variant="title"
-              color="inherit"
-              className={classes.flex}
-            >
-              Suppliety
-            </Typography>
-            {!auth ? (
-              <a href="/auth/google">
-                <Button color="inherit">Login With G+</Button>
-              </a>
+            <Link to="/" className={classes.flex}>
+              <Typography variant="title" color="inherit">
+                Suppliety
+              </Typography>
+            </Link>
+            <Link to="/discovery">
+              <Button color="inherit">Discovery</Button>
+            </Link>
+            {!currentUser ? (
+              <Button href="/auth/google" color="inherit">
+                Login With G+
+              </Button>
             ) : (
-              <a href="/api/logout">
-                <Button color="inherit">Logout</Button>
-              </a>
+              <Button href="/api/logout" color="inherit">
+                Logout
+              </Button>
             )}
             {/* <Button color="inherit">Login With G+</Button> */}
           </Toolbar>
@@ -48,4 +50,4 @@ class AppBars extends PureComponent {
   }
 }
 
-export default withStyles(styles)(AppBars);
+export default withStyles(styles)(MyAppBar);

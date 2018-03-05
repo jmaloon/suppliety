@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-import AppBar from 'containers/AppBar';
+import AppBarCntr from 'containers/AppBarCntr';
 import HomeCntr from 'containers/HomeCntr';
+import DiscoveryCntr from 'containers/DiscoveryCntr';
 
 import * as authActions from 'actions/AuthActions';
 import * as companyActions from 'actions/CompanyActions';
@@ -19,8 +20,9 @@ class MainLayout extends Component {
     return (
       <BrowserRouter>
         <div>
-          <AppBar />
+          <AppBarCntr />
           <Route path="/" exact component={HomeCntr} />
+          <Route path="/discovery" exact component={DiscoveryCntr} />
         </div>
       </BrowserRouter>
     );

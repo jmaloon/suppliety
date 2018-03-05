@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
