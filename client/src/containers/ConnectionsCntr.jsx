@@ -4,25 +4,11 @@ import { bindActionCreators } from 'redux';
 
 import Connections from 'components/Connections';
 
-import * as userActions from 'actions/UserActions';
-import * as companyActions from 'actions/CompanyActions';
+import * as connectionActions from 'actions/ConnectionActions';
 
 class ConnectionsCntr extends Component {
-  // onUserSubmit = userData => {
-  //   console.log(userData);
-  //   this.props.userActions.updateUser(userData);
-  // };
-  //
-  // onUserCompanyCreate = companyData => {
-  //   this.props.companyActions.createCompany(companyData);
-  // };
-  //
-  // onUserCompanySelect = companyId => {
-  //   this.props.companyActions.joinCompanyRequest(companyId);
-  // };
-
   acceptAccountRequest = joinerId => () => {
-    this.props.companyActions.acceptAccountRequest(joinerId);
+    this.props.connectionActions.acceptAccountRequest(joinerId);
   };
 
   render() {
@@ -42,7 +28,6 @@ export default connect(
     currentUser: auth
   }),
   dispatch => ({
-    userActions: bindActionCreators(userActions, dispatch),
-    companyActions: bindActionCreators(companyActions, dispatch)
+    connectionActions: bindActionCreators(connectionActions, dispatch)
   })
 )(ConnectionsCntr);

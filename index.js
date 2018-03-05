@@ -27,6 +27,7 @@ app.use(passport.session());
 require('./routes/authRoutes')(app);
 require('./routes/userRoutes')(app);
 require('./routes/companyRoutes')(app);
+require('./routes/connectionRoutes')(app);
 
 app.get('/', (req, res) => res.send('Hello world!'));
 

@@ -6,6 +6,7 @@ import HomeLayout from 'components/layouts/HomeLayout';
 
 import * as userActions from 'actions/UserActions';
 import * as companyActions from 'actions/CompanyActions';
+import * as connectionActions from 'actions/ConnectionActions';
 
 class HomeCntr extends Component {
   onUserSubmit = userData => {
@@ -18,7 +19,7 @@ class HomeCntr extends Component {
   };
 
   onUserCompanySelect = companyId => {
-    this.props.companyActions.joinCompanyRequest(companyId);
+    this.props.connectionActions.accountRequest(companyId);
   };
 
   render() {
@@ -41,6 +42,7 @@ export default connect(
   }),
   dispatch => ({
     userActions: bindActionCreators(userActions, dispatch),
-    companyActions: bindActionCreators(companyActions, dispatch)
+    companyActions: bindActionCreators(companyActions, dispatch),
+    connectionActions: bindActionCreators(connectionActions, dispatch)
   })
 )(HomeCntr);
