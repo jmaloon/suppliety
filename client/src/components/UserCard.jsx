@@ -9,8 +9,12 @@ import userDefault from 'assets/images/user-default.svg';
 
 const styles = theme => ({
   root: {
-    display: 'flex'
-  }
+    display: 'flex',
+    flex: 1
+  },
+  avatar: { height: 70, width: 70 },
+  info: { flex: 1 },
+  actions: { display: 'flex', alignItems: 'center' }
 });
 
 class CompanyCard extends PureComponent {
@@ -25,12 +29,16 @@ class CompanyCard extends PureComponent {
   }
 
   renderContent() {
-    const { user } = this.props;
+    const { classes, children, user } = this.props;
 
     return (
-      <Fragment>
-        <img src={user.image || userDefault} alt="user avatar" />
-        <div>
+      <article className={classes.root}>
+        <img
+          src={user.image || userDefault}
+          alt="user avatar"
+          className={classes.avatar}
+        />
+        <div className={classes.info}>
           <Typography variant="display1">
             {`${user.nameFirst} ${user.nameLast}`}
           </Typography>
@@ -41,7 +49,8 @@ class CompanyCard extends PureComponent {
             </Typography>
           )}
         </div>
-      </Fragment>
+        <div className={classes.actions}>{children}</div>
+      </article>
     );
   }
 }

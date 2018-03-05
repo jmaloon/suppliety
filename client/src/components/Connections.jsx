@@ -4,10 +4,11 @@ import FetchUsers from 'containers/FetchUsers';
 import FetchCompanies from 'containers/FetchCompanies';
 import UserCard from 'components/UserCard';
 import CompanyCard from 'components/CompanyCard';
+import Button from 'material-ui/Button';
 
 export default class ConnectionsHome extends PureComponent {
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, acceptAccountRequest } = this.props;
 
     return (
       <Fragment>
@@ -28,7 +29,13 @@ export default class ConnectionsHome extends PureComponent {
                 </Typography>
                 <FetchUsers userIds={userCompany[0].accountRequests}>
                   {users =>
-                    users.map(u => <UserCard key={u._id} paper user={u} />)
+                    users.map(u => (
+                      <UserCard key={u._id} paper user={u}>
+                        <Button onClick={acceptAccountRequest(u._id)}>
+                          Accept
+                        </Button>
+                      </UserCard>
+                    ))
                   }
                 </FetchUsers>
               </Fragment>

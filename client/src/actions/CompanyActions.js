@@ -11,6 +11,7 @@ export const getCount = _ => async dispatch => {
       payload: res.data
     });
   } catch (err) {
+    console.log('Error getting company count');
     console.log(err);
   }
 };
@@ -18,7 +19,6 @@ export const getCount = _ => async dispatch => {
 export const createCompany = company => async dispatch => {
   try {
     const res = await axios.post('/api/company/new', company);
-    console.log(res.data);
     dispatch({
       type: types.CREATE_COMPANY,
       payload: res.data[0]
@@ -45,6 +45,7 @@ export const fetchCompany = id => async dispatch => {
       payload: res.data
     });
   } catch (err) {
+    console.log('Error fetching company');
     console.log(err);
   }
 };
@@ -57,6 +58,7 @@ export const fetchCompanies = companyIds => async dispatch => {
       payload: res.data
     });
   } catch (err) {
+    console.log('Error fetching companies');
     console.log(err);
   }
 };
@@ -69,6 +71,7 @@ export const loadCompanies = params => async dispatch => {
       payload: res.data
     });
   } catch (err) {
+    console.log('Error loading companies');
     console.log(err);
   }
 };
@@ -76,7 +79,6 @@ export const loadCompanies = params => async dispatch => {
 export const joinCompanyRequest = companyId => async dispatch => {
   try {
     const res = await axios.post(`/api/company/join/${companyId}`);
-    console.log(res.data);
     dispatch({
       type: types.FETCH_COMPANY,
       payload: res.data[0]
@@ -90,6 +92,26 @@ export const joinCompanyRequest = companyId => async dispatch => {
       payload: res.data[1]
     });
   } catch (err) {
+    console.log('Error with join company request');
+    console.log(err);
+  }
+};
+
+export const acceptAccountRequest = joinerId => async dispatch => {
+  try {
+    const res = await axios.post('/api/company/acceptAccountRequest', {
+      joinerId
+    });
+    dispatch({
+      type: types.FETCH_COMPANY,
+      payload: res.data[0]
+    });
+    dispatch({
+      type: userTypes.FETCH_USER,
+      payload: res.data[1]
+    });
+  } catch (err) {
+    console.log('Error accepting account request');
     console.log(err);
   }
 };

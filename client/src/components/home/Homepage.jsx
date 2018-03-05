@@ -4,7 +4,7 @@ import Typography from 'material-ui/Typography';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import CompanyHome from 'components/home/CompanyHome';
 import ProductsHome from 'components/home/ProductsHome';
-import ConnectionsHome from 'components/home/ConnectionsHome';
+import ConnectionsCntr from 'containers/ConnectionsCntr';
 
 export const HomepageCompany = class extends PureComponent {
   state = {};
@@ -29,12 +29,7 @@ export const HomepageCompany = class extends PureComponent {
 
         {tab === 0 && <CompanyHome currentUser={currentUser} />}
         {tab === 1 && <ProductsHome currentUser={currentUser} />}
-        {tab === 2 && (
-          <ConnectionsHome
-            currentUser={currentUser}
-            company={currentUser.company}
-          />
-        )}
+        {tab === 2 && <ConnectionsCntr />}
       </Fragment>
     );
   }
