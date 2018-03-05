@@ -21,12 +21,13 @@ export const updateUser = user => async dispatch => {
 
 export const fetchUsers = userIds => async dispatch => {
   try {
-    const res = await axios.post('api/users/', { ids: userIds });
+    const res = await axios.post('/api/users', { ids: userIds });
     dispatch({
       type: types.FETCH_USERS,
       payload: res.data
     });
   } catch (err) {
+    console.log('Error fetching users');
     console.log(err);
   }
 };
