@@ -60,7 +60,7 @@ class UserBar extends PureComponent {
   }
 
   render() {
-    const { classes, children, user } = this.props;
+    const { classes, user } = this.props;
     return (
       <div className={classes.root}>
         <img src={user.image || userDefault} alt={user.nameFirst} className={classes.avatar} />

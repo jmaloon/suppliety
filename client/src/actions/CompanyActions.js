@@ -37,6 +37,19 @@ export const createCompany = company => async dispatch => {
   }
 };
 
+export const updateCompany = (companyId, companyData) => async dispatch => {
+  try {
+    const res = await axios.patch(`/api/company/${companyId}`, { companyData });
+    dispatch({
+      type: types.FETCH_COMPANY,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log('Error updating company');
+    console.log(err);
+  }
+};
+
 export const fetchCompany = id => async dispatch => {
   try {
     const res = await axios.get(`/api/company/${id}`);

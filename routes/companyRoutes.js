@@ -16,8 +16,7 @@ module.exports = app => {
   app.post('/api/company/new', loginRequired, async (req, res) => {
     try {
       const { user } = req;
-      if (!!user.company)
-        throw Error('User can only be associated with one company');
+      if (!!user.company) throw Error('User can only be associated with one company');
       const company = new Company({
         ...req.body,
         created: Date.now()
@@ -32,6 +31,20 @@ module.exports = app => {
       const newCompany = await Company.findById(company._id);
       const newUser = await User.findById(user._id);
       res.send([newCompany, newUser]);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  });
+
+  app.patch('/api/company/:id', adminRequired, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { companyData } = req.body;
+
+      const company = await Company.findByIdAndUpdate(id, companyData, { new: true });
+      if (!company) throw 'Company not found';
+
+      res.send(companyData);
     } catch (err) {
       res.status(400).send(err);
     }

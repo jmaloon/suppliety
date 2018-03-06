@@ -69,7 +69,7 @@ class MyAppBar extends PureComponent {
                   <Link to="/my-profile">
                     <MenuItem onClick={this.closeMenu}>My Profile</MenuItem>
                   </Link>
-                  <Link to="/">
+                  <Link to="/my-company">
                     <MenuItem onClick={this.closeMenu}>My Company</MenuItem>
                   </Link>
                   <a href="/api/logout">

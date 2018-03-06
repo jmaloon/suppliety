@@ -34,15 +34,11 @@ class CompanyCard extends PureComponent {
   }
 
   renderContent() {
-    const { actions, classes, children, company } = this.props;
+    const { classes, children, company } = this.props;
 
     return (
       <Fragment>
-        <img
-          src={company.image || companyDefault}
-          alt="company logo"
-          className={classes.image}
-        />
+        <img src={company.image || companyDefault} alt="company logo" className={classes.image} />
         <Typography variant="body2" className={classes.name}>
           {company.name}
         </Typography>

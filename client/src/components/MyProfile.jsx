@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
@@ -38,7 +38,7 @@ const styles = theme => ({
   }
 });
 
-class Profile extends PureComponent {
+class MyProfile extends PureComponent {
   state = { ...this.getInitialState(this.props) };
 
   getInitialState(props) {
@@ -99,7 +99,7 @@ class Profile extends PureComponent {
               onChange={this.handleChange('whatsApp')}
             />
             <Button type="submit" variant="raised" color="primary" onClick={this.onSubmit} fullWidth>
-              Done
+              Save
             </Button>
           </form>
         </div>
@@ -108,4 +108,4 @@ class Profile extends PureComponent {
   }
 }
 
-export default withStyles(styles)(Profile);
+export default withStyles(styles)(MyProfile);

@@ -7,7 +7,8 @@ import AppBarCntr from 'containers/AppBarCntr';
 import HomeCntr from 'containers/HomeCntr';
 import DiscoveryCntr from 'containers/DiscoveryCntr';
 import CompanyPageCntr from 'containers/CompanyPageCntr';
-import ProfileCntr from 'containers/ProfileCntr';
+import MyProfileCntr from 'containers/MyProfileCntr';
+import MyCompanyCntr from 'containers/MyCompanyCntr';
 
 import * as authActions from 'actions/AuthActions';
 import * as companyActions from 'actions/CompanyActions';
@@ -26,7 +27,8 @@ class MainLayout extends Component {
           <Route path="/" exact component={HomeCntr} />
           <Route path="/discovery" exact component={DiscoveryCntr} />
           <Route path="/company/:companyId" exact component={CompanyPageCntr} />
-          <Route path="/my-profile" exact component={ProfileCntr} />
+          <Route path="/my-profile" exact component={MyProfileCntr} />
+          <Route path="/my-company" exact component={MyCompanyCntr} />
         </div>
       </BrowserRouter>
     );
