@@ -47,8 +47,10 @@ export default function(state = initialState, action) {
         }
       };
     case types.FETCH_COMPANIES:
-      const newCompanies = {};
-      action.payload.forEach(company => (newCompanies[company._id] = company));
+      const fetchedCompanies = {};
+      action.payload.forEach(
+        company => (fetchedCompanies[company._id] = company)
+      );
       return {
         ...state,
         status: {
@@ -57,9 +59,22 @@ export default function(state = initialState, action) {
         },
         companies: {
           ...state.companies,
-          ...newCompanies
+          ...fetchedCompanies
         }
       };
+    case types.UPDATE_COMPANIES:
+      const updatedCompanies = {};
+      action.payload.forEach(
+        company => (updatedCompanies[company._id] = company)
+      );
+      return {
+        ...state,
+        companies: {
+          ...state.companies,
+          ...updatedCompanies
+        }
+      };
+
     default:
       return state;
   }

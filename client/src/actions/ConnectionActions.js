@@ -42,3 +42,18 @@ export const acceptAccountRequest = joinerId => async dispatch => {
     console.log(err);
   }
 };
+
+export const requestCompanyConnection = companyId => async dispatch => {
+  try {
+    const res = await axios.post('/api/company/requestCompanyConnection', {
+      companyId
+    });
+    dispatch({
+      type: types.UPDATE_COMPANIES,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log('Error requesting company connection');
+    console.log(err);
+  }
+};

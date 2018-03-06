@@ -55,7 +55,32 @@ module.exports = app => {
         const newUser = await User.findById(joinerId);
         res.send([newCompany, newUser]);
       } catch (err) {
-        res.send(err);
+        res.status(400).send(err);
+      }
+    }
+  );
+
+  app.post(
+    '/api/company/requestCompanyConnection',
+    loginRequired,
+    async (req, res) => {
+      try {
+        const { companyId } = req.body;
+        const otherCompany = await Company.findById(companyId);
+        const myCompany = await Company.findById(req.user.company);
+
+        myCompany.connectionRequestsSent.push(otherCompany);
+        otherCompany.connectionRequestsReceived.push(myCompany);
+
+        await myCompany.save();
+        await otherCompany.save();
+
+        const newOtherCompany = await Company.findById(companyId);
+        const newMyCompany = await Company.findById(req.user.company);
+
+        res.send([newOtherCompany, newMyCompany]);
+      } catch (err) {
+        res.status(400).send(err);
       }
     }
   );
