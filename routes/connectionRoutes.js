@@ -101,12 +101,38 @@ module.exports = app => {
       const { userId } = req.body;
       const currentUser = await User.findById(req.user._id);
       //check that connection doesn't exist and hasn't been requested
-      if (currentUser.connections.includes(userId)) throw 'Connection request exists';
+      if (currentUser.connections.includes(userId)) throw 'Connection already exists';
       if (currentUser.connectionRequestsSent.includes(userId)) throw 'Connection request pending';
 
       const otherUser = await User.findById(userId);
-      otherUser.connectionRequestsReceived.push(req.user._id);
-      currentUser.connectionRequestsSent.push(userId);
+      otherUser.connectionRequestsReceived.push(currentUser);
+      currentUser.connectionRequestsSent.push(otherUser);
+
+      await otherUser.save();
+      await currentUser.save();
+
+      const newCurrentUser = await User.findById(req.user._id);
+      const newOtherUser = await User.findById(userId);
+      res.send([newCurrentUser, newOtherUser]);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  });
+
+  app.post('/api/user/acceptConnection', loginRequired, async (req, res) => {
+    try {
+      const { userId } = req.body;
+      const currentUser = await User.findById(req.user._id);
+      //check that connection doesn't exist
+      if (currentUser.connections.includes(userId)) throw 'Connection already exists';
+
+      const otherUser = await User.findById(userId);
+      otherUser.connections.push(currentUser);
+      currentUser.connections.push(otherUser);
+      currentUser.connectionRequestsSent = currentUser.connectionRequestsSent.filter(c => c === userId);
+      currentUser.connectionRequestsReceived = currentUser.connectionRequestsReceived.filter(c => c === userId);
+      otherUser.connectionRequestsSent = otherUser.connectionRequestsSent.filter(c => c === req.user._id);
+      otherUser.connectionRequestsReceived = otherUser.connectionRequestsReceived.filter(c => c === req.user._id);
 
       await otherUser.save();
       await currentUser.save();

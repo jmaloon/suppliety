@@ -4,12 +4,19 @@ import Typography from 'material-ui/Typography';
 import FetchUsers from 'containers/FetchUsers';
 import FetchCompanies from 'containers/FetchCompanies';
 import UserCard from 'components/UserCard';
+import UserBar from 'components/UserBar';
 import CompanyCard from 'components/CompanyCard';
 import Button from 'material-ui/Button';
 
-export default class ConnectionsHome extends PureComponent {
+export default class Connections extends PureComponent {
   render() {
-    const { currentUser, acceptAccountRequest, acceptCompanyRequest } = this.props;
+    const {
+      currentUser,
+      acceptAccountRequest,
+      acceptCompanyRequest,
+      requestUserConnection,
+      acceptUserConnection
+    } = this.props;
 
     return (
       <Fragment>
@@ -79,7 +86,19 @@ export default class ConnectionsHome extends PureComponent {
         )}
         <Typography variant="display1">Connections</Typography>
         <FetchUsers userIds={currentUser.connections}>
-          {users => users.map(u => <UserCard key={u._id} user={u} />)}
+          {users =>
+            users.map(u => (
+              <UserBar
+                key={u._id}
+                paper
+                user={u}
+                currentUser={currentUser}
+                myCompany={false}
+                acceptUserConnection={acceptUserConnection}
+                requestUserConnection={requestUserConnection}
+              />
+            ))
+          }
         </FetchUsers>
 
         {!!currentUser.connectionRequestsSent.length && (

@@ -75,9 +75,26 @@ export const acceptCompanyRequest = companyId => async dispatch => {
 };
 
 export const requestUserConnection = userId => async dispatch => {
-  // console.log(userId);
   try {
     const res = await axios.post('/api/user/requestConnection', { userId });
+    console.log(res);
+    dispatch({
+      type: userTypes.FETCH_USERS,
+      payload: res.data
+    });
+    dispatch({
+      type: authTypes.AUTH_FETCH_USER,
+      payload: res.data[0]
+    });
+  } catch (err) {
+    console.log('Error requesting user connection');
+    console.log(err);
+  }
+};
+
+export const acceptUserConnection = userId => async dispatch => {
+  try {
+    const res = await axios.post('/api/user/acceptConnection', { userId });
     console.log(res);
     dispatch({
       type: userTypes.FETCH_USERS,

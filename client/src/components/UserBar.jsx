@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 
 import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
+
 import { withStyles } from 'theme/utils';
 
 import userDefault from 'assets/images/user-default.svg';
@@ -22,6 +24,41 @@ const styles = theme => ({
 class UserBar extends PureComponent {
   state = { open: false };
 
+  getActionButton() {
+    const { currentUser, myCompany, requestUserConnection, acceptUserConnection, user } = this.props;
+    if (myCompany) return null;
+    //if connected, you can remove
+    if (currentUser.connections.includes(user._id)) {
+      return (
+        <Button variant="raised" color="secondary">
+          Remove
+        </Button>
+      );
+    }
+    //if they have requested, you can accept
+    if (currentUser.connectionRequestsReceived.includes(user._id)) {
+      return (
+        <Button variant="raised" color="primary" onClick={acceptUserConnection(user._id)}>
+          Accept
+        </Button>
+      );
+    }
+    //if you have requested, it is disabled and pending
+    if (currentUser.connectionRequestsSent.includes(user._id)) {
+      return (
+        <Button variant="raised" color="primary" disabled={true}>
+          Pending
+        </Button>
+      );
+    }
+    //if there is no status, you can request connection
+    return (
+      <Button variant="raised" color="primary" onClick={requestUserConnection(user._id)}>
+        Connect
+      </Button>
+    );
+  }
+
   render() {
     const { classes, children, user } = this.props;
     return (
@@ -31,7 +68,7 @@ class UserBar extends PureComponent {
           <Typography variant="title">{`${user.nameFirst} ${user.nameLast}`}</Typography>
           <Typography variant="caption">{user.title}</Typography>
         </div>
-        <div>{children}</div>
+        <div>{this.getActionButton()}</div>
       </div>
     );
   }

@@ -22,6 +22,10 @@ class CompanyPageCntr extends Component {
     this.props.connectionActions.requestUserConnection(userId);
   };
 
+  acceptUserConnection = userId => () => {
+    this.props.connectionActions.acceptUserConnection(userId);
+  };
+
   render() {
     const { currentUser, company, connected, myCompany, connectionRequested } = this.props;
     if (!company) return <Loader />;
@@ -34,6 +38,7 @@ class CompanyPageCntr extends Component {
         myCompany={myCompany}
         requestCompanyConnection={this.requestCompanyConnection}
         requestUserConnection={this.requestUserConnection}
+        acceptUserConnection={this.acceptUserConnection}
       />
     );
   }

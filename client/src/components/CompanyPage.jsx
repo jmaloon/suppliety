@@ -26,6 +26,41 @@ const styles = theme => ({
 });
 
 class CompanyPage extends PureComponent {
+  // getActionButton(user) {
+  //   const { currentUser, myCompany, requestUserConnection, acceptUserConnection } = this.props;
+  //   if (myCompany) return null;
+  //   //if connected, you can remove
+  //   if (currentUser.connections.includes(user._id)) {
+  //     return (
+  //       <Button variant="raised" color="secondary">
+  //         Remove
+  //       </Button>
+  //     );
+  //   }
+  //   //if they have requested, you can accept
+  //   if (currentUser.connectionRequestsReceived.includes(user._id)) {
+  //     return (
+  //       <Button variant="raised" color="primary" onClick={acceptUserConnection(user._id)}>
+  //         Accept
+  //       </Button>
+  //     );
+  //   }
+  //   //if you have requested, it is disabled and pending
+  //   if (currentUser.connectionRequestsSent.includes(user._id)) {
+  //     return (
+  //       <Button variant="raised" color="primary" disabled={true}>
+  //         Pending
+  //       </Button>
+  //     );
+  //   }
+  //   //if there is no status, you can request connection
+  //   return (
+  //     <Button variant="raised" color="primary" onClick={requestUserConnection(user._id)}>
+  //       Connect
+  //     </Button>
+  //   );
+  // }
+
   render() {
     const {
       classes,
@@ -34,8 +69,8 @@ class CompanyPage extends PureComponent {
       connectionRequested,
       currentUser,
       myCompany,
-      onCompanyConnect,
       requestCompanyConnection,
+      acceptUserConnection,
       requestUserConnection
     } = this.props;
 
@@ -66,18 +101,15 @@ class CompanyPage extends PureComponent {
             <FetchUsers userIds={company.accounts}>
               {users =>
                 users.map(u => (
-                  <UserBar key={u._id} paper user={u}>
-                    {!myCompany && (
-                      <Button
-                        variant="raised"
-                        color="primary"
-                        disabled={currentUser.connectionRequestsSent.includes(u._id)}
-                        onClick={requestUserConnection(u._id)}
-                      >
-                        {currentUser.connectionRequestsSent.includes(u._id) ? 'Connect Pending' : 'Connect'}
-                      </Button>
-                    )}
-                  </UserBar>
+                  <UserBar
+                    key={u._id}
+                    paper
+                    user={u}
+                    currentUser={currentUser}
+                    myCompany={myCompany}
+                    acceptUserConnection={acceptUserConnection}
+                    requestUserConnection={requestUserConnection}
+                  />
                 ))
               }
             </FetchUsers>
