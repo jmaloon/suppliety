@@ -1,7 +1,7 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 
-import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
+import TextField from 'material-ui/TextField';
 import { withStyles } from 'theme/utils';
 import Phone from 'mdi-material-ui/Phone';
 import Email from 'mdi-material-ui/Email';
@@ -26,6 +26,13 @@ const styles = theme => ({
   info: {
     display: 'flex',
     alignItems: 'center'
+  },
+  disabled: {
+    color: theme.palette.common.black,
+    fontSize: 14,
+    '&:before': {
+      display: 'none'
+    }
   }
 });
 
@@ -60,7 +67,19 @@ class CompanyCard extends PureComponent {
           </div>
         </section>
         <section>
-          <Typography>{company.about}</Typography>
+          <TextField
+            value={company.about}
+            fullWidth
+            multiline
+            disabled
+            InputProps={{
+              classes: {
+                disabled: classes.disabled
+              }
+            }}
+          />
+          {/* <textarea>{company.about}</textarea> */}
+          {/* <Typography multiline>{company.about}</Typography> */}
         </section>
       </article>
     );

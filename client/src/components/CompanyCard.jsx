@@ -36,7 +36,7 @@ class CompanyCard extends PureComponent {
       <Fragment>
         <img src={company.image || companyDefault} alt="company logo" />
         <Typography variant="body2">{company.name}</Typography>
-        <Typography>{company.about}</Typography>
+        <Typography noWrap>{company.about}</Typography>
       </Fragment>
     );
   }

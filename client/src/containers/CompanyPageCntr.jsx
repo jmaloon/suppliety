@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import Loader from 'components/my-elements/Loader';
 import CompanyPage from 'components/CompanyPage';
 
+import { userHasCompany } from 'theme/utils';
 import * as companyActions from 'actions/CompanyActions';
 
 class CompanyPageCntr extends Component {
@@ -16,19 +17,14 @@ class CompanyPageCntr extends Component {
     if (!company) companyActions.fetchCompany(companyId);
   }
   render() {
-    const { currentUser, company } = this.props;
+    const { currentUser, company, connected, myCompany } = this.props;
     if (!company) return <Loader />;
-    const connected =
-      !!currentUser &&
-      !!currentUser.company &&
-      currentUser.companyAccepted &&
-      company.connections.includes(currentUser.company);
-
     return (
       <CompanyPage
         currentUser={currentUser}
         company={company}
         connected={connected}
+        myCompany={myCompany}
       />
     );
   }
@@ -37,7 +33,12 @@ class CompanyPageCntr extends Component {
 export default connect(
   ({ auth, companies }, { match: { params: { companyId } } }) => ({
     currentUser: auth,
-    company: companies.companies[companyId]
+    company: companies.companies[companyId],
+    connected:
+      userHasCompany(auth) &&
+      !!companies.companies[companyId] &&
+      companies.companies[companyId].connections.includes(auth.company),
+    myCompany: userHasCompany(auth) && auth.company === companyId
   }),
   dispatch => ({
     companyActions: bindActionCreators(companyActions, dispatch)
