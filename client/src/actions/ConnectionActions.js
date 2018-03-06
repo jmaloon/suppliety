@@ -1,5 +1,5 @@
 import axios from 'axios';
-import types from 'constants/CompanyActionTypes';
+import companyTypes from 'constants/CompanyActionTypes';
 import authTypes from 'constants/AuthActionTypes';
 import userTypes from 'constants/UserActionTypes';
 
@@ -7,7 +7,7 @@ export const accountRequest = companyId => async dispatch => {
   try {
     const res = await axios.post(`/api/company/accountRequest/${companyId}`);
     dispatch({
-      type: types.FETCH_COMPANY,
+      type: companyTypes.FETCH_COMPANY,
       payload: res.data[0]
     });
     dispatch({
@@ -30,7 +30,7 @@ export const acceptAccountRequest = joinerId => async dispatch => {
       joinerId
     });
     dispatch({
-      type: types.FETCH_COMPANY,
+      type: companyTypes.FETCH_COMPANY,
       payload: res.data[0]
     });
     dispatch({
@@ -49,7 +49,7 @@ export const requestCompanyConnection = companyId => async dispatch => {
       companyId
     });
     dispatch({
-      type: types.UPDATE_COMPANIES,
+      type: companyTypes.UPDATE_COMPANIES,
       payload: res.data
     });
   } catch (err) {
@@ -65,11 +65,30 @@ export const acceptCompanyRequest = companyId => async dispatch => {
     });
     console.log(res);
     dispatch({
-      type: types.UPDATE_COMPANIES,
+      type: companyTypes.UPDATE_COMPANIES,
       payload: res.data
     });
   } catch (err) {
     console.log('Error accepting company connection');
+    console.log(err);
+  }
+};
+
+export const requestUserConnection = userId => async dispatch => {
+  // console.log(userId);
+  try {
+    const res = await axios.post('/api/user/requestConnection', { userId });
+    console.log(res);
+    dispatch({
+      type: userTypes.FETCH_USERS,
+      payload: res.data
+    });
+    dispatch({
+      type: authTypes.AUTH_FETCH_USER,
+      payload: res.data[0]
+    });
+  } catch (err) {
+    console.log('Error requesting user connection');
     console.log(err);
   }
 };

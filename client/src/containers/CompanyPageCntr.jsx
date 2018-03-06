@@ -10,26 +10,20 @@ import * as connectionActions from 'actions/ConnectionActions';
 
 class CompanyPageCntr extends Component {
   componentDidMount() {
-    const {
-      company,
-      companyActions,
-      match: { params: { companyId } }
-    } = this.props;
+    const { company, companyActions, match: { params: { companyId } } } = this.props;
     if (!company) companyActions.fetchCompany(companyId);
   }
 
-  requestCompanyConnection = companyId => {
+  requestCompanyConnection = companyId => () => {
     this.props.connectionActions.requestCompanyConnection(companyId);
   };
 
+  requestUserConnection = userId => () => {
+    this.props.connectionActions.requestUserConnection(userId);
+  };
+
   render() {
-    const {
-      currentUser,
-      company,
-      connected,
-      myCompany,
-      connectionRequested
-    } = this.props;
+    const { currentUser, company, connected, myCompany, connectionRequested } = this.props;
     if (!company) return <Loader />;
     return (
       <CompanyPage
@@ -39,6 +33,7 @@ class CompanyPageCntr extends Component {
         connectionRequested={connectionRequested}
         myCompany={myCompany}
         requestCompanyConnection={this.requestCompanyConnection}
+        requestUserConnection={this.requestUserConnection}
       />
     );
   }
@@ -55,9 +50,7 @@ export default connect(
     connectionRequested:
       userHasCompany(auth) &&
       !!companies.companies[companyId] &&
-      companies.companies[companyId].connectionRequestsReceived.includes(
-        auth.company
-      ),
+      companies.companies[companyId].connectionRequestsReceived.includes(auth.company),
     myCompany: userHasCompany(auth) && auth.company === companyId
   }),
   dispatch => ({

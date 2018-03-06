@@ -95,4 +95,27 @@ module.exports = app => {
       res.status(400).send(err);
     }
   });
+
+  app.post('/api/user/requestConnection', loginRequired, async (req, res) => {
+    try {
+      const { userId } = req.body;
+      const currentUser = await User.findById(req.user._id);
+      //check that connection doesn't exist and hasn't been requested
+      if (currentUser.connections.includes(userId)) throw 'Connection request exists';
+      if (currentUser.connectionRequestsSent.includes(userId)) throw 'Connection request pending';
+
+      const otherUser = await User.findById(userId);
+      otherUser.connectionRequestsReceived.push(req.user._id);
+      currentUser.connectionRequestsSent.push(userId);
+
+      await otherUser.save();
+      await currentUser.save();
+
+      const newCurrentUser = await User.findById(req.user._id);
+      const newOtherUser = await User.findById(userId);
+      res.send([newCurrentUser, newOtherUser]);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  });
 };

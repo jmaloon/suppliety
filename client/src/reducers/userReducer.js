@@ -11,11 +11,11 @@ export default function(state = {}, action) {
         }
       };
     case types.FETCH_USERS:
-      const newUsers = {};
-      action.payload.forEach(user => (newUsers[user._id] = user));
+      const fetchedUsers = {};
+      action.payload.forEach(user => (fetchedUsers[user._id] = user));
       return {
         ...state,
-        ...newUsers
+        ...fetchedUsers
       };
     default:
       return state;
