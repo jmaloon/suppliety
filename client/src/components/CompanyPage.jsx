@@ -26,41 +26,6 @@ const styles = theme => ({
 });
 
 class CompanyPage extends PureComponent {
-  // getActionButton(user) {
-  //   const { currentUser, myCompany, requestUserConnection, acceptUserConnection } = this.props;
-  //   if (myCompany) return null;
-  //   //if connected, you can remove
-  //   if (currentUser.connections.includes(user._id)) {
-  //     return (
-  //       <Button variant="raised" color="secondary">
-  //         Remove
-  //       </Button>
-  //     );
-  //   }
-  //   //if they have requested, you can accept
-  //   if (currentUser.connectionRequestsReceived.includes(user._id)) {
-  //     return (
-  //       <Button variant="raised" color="primary" onClick={acceptUserConnection(user._id)}>
-  //         Accept
-  //       </Button>
-  //     );
-  //   }
-  //   //if you have requested, it is disabled and pending
-  //   if (currentUser.connectionRequestsSent.includes(user._id)) {
-  //     return (
-  //       <Button variant="raised" color="primary" disabled={true}>
-  //         Pending
-  //       </Button>
-  //     );
-  //   }
-  //   //if there is no status, you can request connection
-  //   return (
-  //     <Button variant="raised" color="primary" onClick={requestUserConnection(user._id)}>
-  //       Connect
-  //     </Button>
-  //   );
-  // }
-
   render() {
     const {
       classes,
@@ -79,7 +44,8 @@ class CompanyPage extends PureComponent {
         <div className={classes.content}>
           <CompanyDetails company={company} />
 
-          {!myCompany &&
+          {!!currentUser &&
+            !myCompany &&
             !connected && (
               <Button
                 variant="raised"

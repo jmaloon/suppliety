@@ -105,7 +105,19 @@ export default class Connections extends PureComponent {
           <Fragment>
             <Typography variant="display1">Requests Sent</Typography>
             <FetchUsers userIds={currentUser.connectionRequestsSent}>
-              {users => users.map(u => <UserCard key={u._id} user={u} />)}
+              {users =>
+                users.map(u => (
+                  <UserBar
+                    key={u._id}
+                    paper
+                    user={u}
+                    currentUser={currentUser}
+                    myCompany={false}
+                    acceptUserConnection={acceptUserConnection}
+                    requestUserConnection={requestUserConnection}
+                  />
+                ))
+              }
             </FetchUsers>
           </Fragment>
         )}
@@ -114,7 +126,19 @@ export default class Connections extends PureComponent {
           <Fragment>
             <Typography variant="display1">Requests Received</Typography>
             <FetchUsers userIds={currentUser.connectionRequestsReceived}>
-              {users => users.map(u => <UserCard key={u._id} user={u} />)}
+              {users =>
+                users.map(u => (
+                  <UserBar
+                    key={u._id}
+                    paper
+                    user={u}
+                    currentUser={currentUser}
+                    myCompany={false}
+                    acceptUserConnection={acceptUserConnection}
+                    requestUserConnection={requestUserConnection}
+                  />
+                ))
+              }
             </FetchUsers>
           </Fragment>
         )}
