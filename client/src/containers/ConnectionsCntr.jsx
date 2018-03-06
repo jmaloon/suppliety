@@ -11,6 +11,10 @@ class ConnectionsCntr extends Component {
     this.props.connectionActions.acceptAccountRequest(joinerId);
   };
 
+  acceptCompanyRequest = companyId => () => {
+    this.props.connectionActions.acceptCompanyRequest(companyId);
+  };
+
   render() {
     const { currentUser } = this.props;
 
@@ -18,6 +22,7 @@ class ConnectionsCntr extends Component {
       <Connections
         currentUser={currentUser}
         acceptAccountRequest={this.acceptAccountRequest}
+        acceptCompanyRequest={this.acceptCompanyRequest}
       />
     );
   }

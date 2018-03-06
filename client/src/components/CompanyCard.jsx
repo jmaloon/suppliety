@@ -9,9 +9,13 @@ import companyDefault from 'assets/images/company-default.svg';
 const styles = theme => ({
   root: {
     display: 'flex',
-    flexDirection: 'column',
-    width: 150
-  }
+    alignItems: 'center'
+  },
+  image: {
+    height: 50,
+    width: 50
+  },
+  name: { flex: 1 }
 });
 
 class CompanyCard extends PureComponent {
@@ -30,13 +34,19 @@ class CompanyCard extends PureComponent {
   }
 
   renderContent() {
-    const { company } = this.props;
+    const { actions, classes, children, company } = this.props;
 
     return (
       <Fragment>
-        <img src={company.image || companyDefault} alt="company logo" />
-        <Typography variant="body2">{company.name}</Typography>
-        <Typography noWrap>{company.about}</Typography>
+        <img
+          src={company.image || companyDefault}
+          alt="company logo"
+          className={classes.image}
+        />
+        <Typography variant="body2" className={classes.name}>
+          {company.name}
+        </Typography>
+        {children}
       </Fragment>
     );
   }

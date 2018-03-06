@@ -57,3 +57,19 @@ export const requestCompanyConnection = companyId => async dispatch => {
     console.log(err);
   }
 };
+
+export const acceptCompanyRequest = companyId => async dispatch => {
+  try {
+    const res = await axios.post('/api/company/acceptCompanyConnection', {
+      companyId
+    });
+    console.log(res);
+    dispatch({
+      type: types.UPDATE_COMPANIES,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log('Error accepting company connection');
+    console.log(err);
+  }
+};
