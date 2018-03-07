@@ -69,7 +69,7 @@ export default class Connections extends PureComponent {
                 {!!userCompany[0].accountRequests.length && (
                   <Fragment>
                     <Typography variant="display1">Company Account Requests</Typography>
-                    <FetchCompanies companyIds={userCompany[0].accountRequests}>
+                    <FetchUsers userIds={userCompany[0].accountRequests}>
                       {users =>
                         users.map(u => (
                           <UserCard key={u._id} user={u}>
@@ -77,7 +77,7 @@ export default class Connections extends PureComponent {
                           </UserCard>
                         ))
                       }
-                    </FetchCompanies>
+                    </FetchUsers>
                   </Fragment>
                 )}
               </Fragment>

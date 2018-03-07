@@ -35,6 +35,7 @@ class FetchUsers extends Component {
   render() {
     const { userIds } = this.props;
     const { users } = this.state;
+
     if (!userIds.length) {
       return 'There are no users to show here';
     }

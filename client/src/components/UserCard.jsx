@@ -33,15 +33,9 @@ class CompanyCard extends PureComponent {
 
     return (
       <article className={classes.root}>
-        <img
-          src={user.image || userDefault}
-          alt="user avatar"
-          className={classes.avatar}
-        />
+        <img src={user.image || userDefault} alt="user avatar" className={classes.avatar} />
         <div className={classes.info}>
-          <Typography variant="display1">
-            {`${user.nameFirst} ${user.nameLast}`}
-          </Typography>
+          <Typography variant="display1">{`${user.nameFirst} ${user.nameLast}`}</Typography>
           {user.email && (
             <Typography>
               <At />
