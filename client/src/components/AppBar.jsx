@@ -5,7 +5,7 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import { Link } from 'react-router-dom';
-import { withStyles, userHasCompany } from 'theme/utils';
+import { withStyles } from 'theme/utils';
 
 import userDefault from 'assets/images/user-default.svg';
 
@@ -62,6 +62,7 @@ class MyAppBar extends PureComponent {
               <div ref={el => (this.menu = el)}>
                 <img
                   src={currentUser.image || userDefault}
+                  alt="avatar"
                   className={classes.image}
                   onClick={() => this.setState({ menu: !menu })}
                 />

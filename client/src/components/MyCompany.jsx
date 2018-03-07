@@ -172,7 +172,7 @@ class MyProfile extends PureComponent {
               onChange={this.handleChange('instagram')}
             />
 
-            <Button fullWidth variant="raised" color="primary" type="submit" onClick={this.onSubmit}>
+            <Button disabled={disabled} fullWidth variant="raised" color="primary" type="submit" onClick={this.onSubmit}>
               Save
             </Button>
           </form>

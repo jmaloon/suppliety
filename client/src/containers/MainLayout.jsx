@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import AppBarCntr from 'containers/AppBarCntr';
-import HomeCntr from 'containers/HomeCntr';
+import HomeCntr from 'containers/home/HomeCntr';
 import DiscoveryCntr from 'containers/DiscoveryCntr';
 import CompanyPageCntr from 'containers/CompanyPageCntr';
 import MyProfileCntr from 'containers/MyProfileCntr';
