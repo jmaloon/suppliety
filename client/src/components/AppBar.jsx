@@ -63,9 +63,9 @@ class MyAppBar extends Component {
               <Button color="inherit">Discovery</Button>
             </NavLink>
             {!currentUser ? (
-              <Button href="/auth/google" color="inherit">
-                Login With G+
-              </Button>
+              <a href="/auth/google">
+                <Button color="inherit">Login With G+</Button>
+              </a>
             ) : (
               <div ref={el => (this.menu = el)}>
                 <img
