@@ -1,10 +1,10 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Menu, { MenuItem } from 'material-ui/Menu';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { withStyles } from 'theme/utils';
 
 import userDefault from 'assets/images/user-default.svg';
@@ -19,8 +19,9 @@ const styles = theme => ({
   flex: { flex: 1 },
   padder: theme.mixins.toolbar,
   image: {
-    height: 40,
-    width: 40,
+    width: 70,
+    height: 50,
+    padding: 5,
     borderRadius: '50%',
     cursor: 'pointer'
   },
@@ -29,10 +30,13 @@ const styles = theme => ({
       textDecoration: 'none',
       outline: 'none'
     }
+  },
+  activeLink: {
+    color: [['red', '!important']]
   }
 });
 
-class MyAppBar extends PureComponent {
+class MyAppBar extends Component {
   state = { menu: false };
 
   closeMenu = () => {
@@ -51,9 +55,12 @@ class MyAppBar extends PureComponent {
                 Suppliety
               </Typography>
             </Link>
-            <Link to="/discovery">
+            <NavLink to="/" exact activeClassName={classes.activeLink}>
+              <Button color="inherit">Home</Button>
+            </NavLink>
+            <NavLink to="/discovery" exact activeClassName={classes.activeLink}>
               <Button color="inherit">Discovery</Button>
-            </Link>
+            </NavLink>
             {!currentUser ? (
               <Button href="/auth/google" color="inherit">
                 Login With G+

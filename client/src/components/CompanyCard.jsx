@@ -9,41 +9,37 @@ import companyDefault from 'assets/images/company-default.svg';
 const styles = theme => ({
   root: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    margin: [[5, 0]],
+    padding: 5
+    // boxShadow: [[0, 0, 10, 0, theme.palette.grey[300]]],
+    // '&:hover': {
+    //   boxShadow: [[0, 0, 10, 2, theme.palette.grey[400]]]
+    // }
   },
   image: {
     height: 50,
     width: 50
   },
-  name: { flex: 1 }
+  flex: { flex: 1 }
 });
 
 class CompanyCard extends PureComponent {
   state = {};
 
   render() {
-    const { classes, to } = this.props;
-    if (to) {
-      return (
-        <Link to={to}>
-          <article className={classes.root}>{this.renderContent()}</article>
-        </Link>
-      );
-    }
-    return <article className={classes.root}>{this.renderContent()}</article>;
-  }
-
-  renderContent() {
     const { classes, children, company } = this.props;
 
     return (
-      <Fragment>
-        <img src={company.image || companyDefault} alt="company logo" className={classes.image} />
-        <Typography variant="body2" className={classes.name}>
+      <article className={classes.root}>
+        <Link to={`/company/${company._id}`}>
+          <img src={company.image || companyDefault} alt="company logo" className={classes.image} />
+        </Link>
+        <Typography variant="body2" className={classes.flex}>
           {company.name}
         </Typography>
         {children}
-      </Fragment>
+      </article>
     );
   }
 }
