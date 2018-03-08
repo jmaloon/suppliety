@@ -39,10 +39,10 @@ export default withStyles(styles)(({ classes, currentUser }) => (
       <div className={classes.buttons}>
         <Link to="/my-profile">
           <Button variant="raised" color="primary" fullWidth>
-            {`${!!currentUser.edited ? 'View' : 'Build'} Profile`}
+            {`${!!currentUser.edited ? 'Edit' : 'Create'} Profile`}
           </Button>
         </Link>
-        <Link to="/my-company">
+        <Link to={!!currentUser.company ? `/company/${currentUser.company}` : '/my-company'}>
           <Button variant="raised" color="primary" fullWidth>
             {`${!!currentUser.company ? 'View' : 'Add'} Company`}
           </Button>

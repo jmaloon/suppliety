@@ -26,6 +26,14 @@ const styles = theme => ({
 });
 
 class CompanyPage extends PureComponent {
+  state = { expanded: [] };
+
+  toggleUser = id => () => {
+    const { expanded } = this.state;
+    if (expanded.includes(id)) return this.setState({ expanded: expanded.filter(e => e !== id) });
+    return this.setState({ expanded: [...expanded, id] });
+  };
+
   render() {
     const {
       classes,
@@ -38,6 +46,7 @@ class CompanyPage extends PureComponent {
       acceptUserConnection,
       requestUserConnection
     } = this.props;
+    const { expanded } = this.state;
 
     return (
       <div className={classes.container}>
@@ -77,6 +86,8 @@ class CompanyPage extends PureComponent {
                     user={u}
                     currentUser={currentUser}
                     myCompany={myCompany}
+                    open={expanded.includes(u._id)}
+                    onToggle={this.toggleUser(u._id)}
                     acceptUserConnection={acceptUserConnection}
                     requestUserConnection={requestUserConnection}
                   />

@@ -19,9 +19,10 @@ const styles = theme => ({
   flex: { flex: 1 },
   padder: theme.mixins.toolbar,
   image: {
-    width: 70,
+    width: 50,
     height: 50,
     padding: 5,
+    margin: [[0, 10]],
     borderRadius: '50%',
     cursor: 'pointer'
   },
