@@ -29,8 +29,6 @@ require('./routes/userRoutes')(app);
 require('./routes/companyRoutes')(app);
 require('./routes/connectionRoutes')(app);
 
-app.get('/', (req, res) => res.send('Hello world!'));
-
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 
