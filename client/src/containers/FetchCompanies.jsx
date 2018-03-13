@@ -41,6 +41,7 @@ class FetchCompanies extends Component {
     if (!companyIds.length) {
       return 'There are no companies to show here';
     }
+
     if (companies) {
       return this.props.children(companies);
     }

@@ -44,7 +44,7 @@ module.exports = app => {
       const company = await Company.findByIdAndUpdate(id, companyData, { new: true });
       if (!company) throw 'Company not found';
 
-      res.send(companyData);
+      res.send(company);
     } catch (err) {
       res.status(400).send(err);
     }

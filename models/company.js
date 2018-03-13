@@ -19,6 +19,7 @@ const CompanySchema = new Schema({
     required: true
   },
   phone: String,
+  products: [{ type: Schema.Types.ObjectId, ref: 'product' }],
   image: String,
   policies: [Object],
   subtype: String,

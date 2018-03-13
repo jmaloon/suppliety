@@ -12,7 +12,7 @@
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "engines": {
-    "node": "8.9.4"
+    "node": "9.3.0"
   },
   "repository": "git+https://github.com/jmaloon/suppliety.git",
   "author": "jmaloon <joshmaloon@gmail.com>",

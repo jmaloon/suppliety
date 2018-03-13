@@ -4,7 +4,8 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Menu, { MenuItem } from 'material-ui/Menu';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+// import { NavLink, Link } from 'react-router-dom';
 import { withStyles } from 'theme/utils';
 
 import userDefault from 'assets/images/user-default.svg';
@@ -12,8 +13,7 @@ import userDefault from 'assets/images/user-default.svg';
 const styles = theme => ({
   root: {
     '& a': {
-      color: 'inherit',
-      textDecoration: 'none'
+      color: 'inherit'
     }
   },
   flex: { flex: 1 },
@@ -31,10 +31,10 @@ const styles = theme => ({
       textDecoration: 'none',
       outline: 'none'
     }
-  },
-  activeLink: {
-    color: [['red', '!important']]
   }
+  // activeLink: {
+  //   color: [['red', '!important']]
+  // }
 });
 
 class MyAppBar extends Component {
@@ -56,12 +56,14 @@ class MyAppBar extends Component {
                 Suppliety
               </Typography>
             </Link>
-            <NavLink to="/" exact activeClassName={classes.activeLink}>
-              <Button color="inherit">Home</Button>
-            </NavLink>
-            <NavLink to="/discovery" exact activeClassName={classes.activeLink}>
+            {!!currentUser && (
+              <Link to="/">
+                <Button color="inherit">Home</Button>
+              </Link>
+            )}
+            <Link to="/discovery">
               <Button color="inherit">Discovery</Button>
-            </NavLink>
+            </Link>
             {!currentUser ? (
               <Button href="/auth/google" color="inherit">
                 Login With G+

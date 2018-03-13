@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
@@ -22,6 +22,7 @@ const styles = theme => ({
   top: {
     display: 'flex',
     alignItems: 'center',
+    cursor: 'pointer',
     '& .details': {
       flex: 1
     }
@@ -40,6 +41,14 @@ const styles = theme => ({
 });
 
 class UserBar extends PureComponent {
+  state = { open: false };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.open !== this.props.open) {
+      this.setState({ open: nextProps.open });
+    }
+  }
+
   getActionButton() {
     const { currentUser, myCompany, requestUserConnection, acceptUserConnection, user } = this.props;
     if (myCompany) return null;
@@ -75,13 +84,19 @@ class UserBar extends PureComponent {
     );
   }
 
+  onToggle = () => {
+    const { onToggle } = this.props;
+    this.setState({ open: !this.state.open });
+    if (onToggle) onToggle(!this.state.open);
+  };
+
   render() {
-    const { classes, user, open, onToggle } = this.props;
-    // const { open } = this.state;
-    console.log(user);
+    const { classes, user } = this.props;
+    const { open } = this.state;
+
     return (
       <article className={classes.root}>
-        <div className={classNames(classes.top, { [classes.toggle]: !!onToggle })} onClick={onToggle}>
+        <div className={classes.top} onClick={this.onToggle}>
           <img src={user.image || userDefault} alt={user.nameFirst} className={classes.avatar} />
           <div className="details">
             <Typography variant="title">{`${user.nameFirst} ${user.nameLast}`}</Typography>
