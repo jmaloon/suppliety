@@ -29,7 +29,7 @@ class FetchCompanies extends Component {
     }
   }
 
-  fetchCompanies({ companies, companyActions, companyIds, fetchCompanyIds }) {
+  fetchCompanies({ companies, companyActions, fetchCompanyIds }) {
     if (!!fetchCompanyIds.length && this.state.fetching !== fetchCompanyIds) {
       this.setState({ fetching: fetchCompanyIds });
       companyActions.fetchCompanies(fetchCompanyIds);

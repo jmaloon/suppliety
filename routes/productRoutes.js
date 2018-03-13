@@ -20,13 +20,23 @@ module.exports = app => {
       };
       // if (brand) data.brand = await Brand.findById(productBrand)
 
-      const product = await new Product({ data }).save();
+      const product = await new Product(data).save();
       company.products.push(product);
       await company.save();
 
       const newProduct = await Product.findById(product._id);
       const newCompany = await Company.findById(req.user.company);
       res.send([newProduct, newCompany]);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  });
+
+  app.post('/api/products/fetch', async (req, res) => {
+    try {
+      const { productIds } = req.body;
+      const products = await Product.find({ _id: { $in: productIds } });
+      res.send(products);
     } catch (err) {
       res.status(400).send(err);
     }

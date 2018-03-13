@@ -7,7 +7,6 @@ import Catalog from 'components/Catalog';
 import * as productActions from 'actions/ProductActions';
 class CatalogCntr extends Component {
   addProduct = data => {
-    console.log(data);
     this.props.productActions.addProduct(data);
   };
 

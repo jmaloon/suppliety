@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Button from 'material-ui/Button';
 import Plus from 'mdi-material-ui/Plus';
 
+import FetchProducts from 'containers/FetchProducts';
 import ProductForm from 'components/forms/ProductForm';
 import { withStyles, getCompanyImage } from 'theme/utils';
 
@@ -59,8 +60,20 @@ class Catalog extends Component {
           )}
         </div>
         <div className={classes.content}>
-          <ProductForm onSubmit={this.addProduct} />
-          {create ? <h1>Create</h1> : <h1>Catalog</h1>}
+          {create ? (
+            <ProductForm onSubmit={this.addProduct} />
+          ) : (
+            <FetchProducts productIds={company.products}>
+              {products =>
+                products.map(product => (
+                  <div>
+                    <h1>{product.title}</h1>
+                    <p>{product.description}</p>
+                  </div>
+                ))
+              }
+            </FetchProducts>
+          )}
         </div>
       </div>
     );

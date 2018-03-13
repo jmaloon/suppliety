@@ -76,7 +76,6 @@ class ProductForm extends PureComponent {
 
   onSubmit = evt => {
     evt.preventDefault();
-    console.log(this.state);
     if (this.canSave()) this.props.onSubmit(this.state);
   };
 
