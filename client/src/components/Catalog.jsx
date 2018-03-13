@@ -36,25 +36,30 @@ class Catalog extends Component {
     this.setState({ create: false });
   };
 
+  addProduct = data => {
+    this.setState({ create: false });
+    this.props.addProduct(data);
+  };
+
   render() {
-    const { classes, company } = this.props;
+    const { classes, company, addProduct } = this.props;
     const { create } = this.state;
     return (
       <div className={classes.container}>
         <div className={classes.filter}>
           <img src={getCompanyImage(company)} alt={company.name} />
           {create ? (
-            <Button fullWidth variant="raised" color="primary" onClick={this.onCreate}>
-              Save
+            <Button fullWidth color="secondary" onClick={() => this.setState({ create: false })}>
+              cancel
             </Button>
           ) : (
-            <Button fullWidth color="secondary" onClick={() => this.setState({ create: true })}>
+            <Button fullWidth color="primary" onClick={() => this.setState({ create: true })}>
               <Plus /> Create
             </Button>
           )}
         </div>
         <div className={classes.content}>
-          <ProductForm />
+          <ProductForm onSubmit={this.addProduct} />
           {create ? <h1>Create</h1> : <h1>Catalog</h1>}
         </div>
       </div>

@@ -55,6 +55,11 @@ class ProductForm extends PureComponent {
     this.setState({ [name]: event.target.value });
   };
 
+  canSave = () => {
+    const { title } = this.state;
+    return !!title;
+  };
+
   addTag = () => {
     const { newTag, tags = [] } = this.state;
     if (!!newTag) {
@@ -71,8 +76,8 @@ class ProductForm extends PureComponent {
 
   onSubmit = evt => {
     evt.preventDefault();
-
-    // this.props.onSubmit(this.state);
+    console.log(this.state);
+    if (this.canSave()) this.props.onSubmit(this.state);
   };
 
   render() {
@@ -104,10 +109,8 @@ class ProductForm extends PureComponent {
             }
           />
         </FormControl>
-        {/* <TextField fullWidth label="Add Tag" value={newTag} onChange={this.handleChange('newTag')} /> */}
-        {/* <Button onClick={this.addTag}>ADD</Button> */}
         {tags.map((tag, i) => <Chip key={i} label={tag} onDelete={this.deleteTag(tag)} />)}
-        <Button variant="raised" color="primary" type="submit" onClick={this.onSubmit}>
+        <Button variant="raised" color="primary" type="submit" disabled={!this.canSave()} onClick={this.onSubmit}>
           Save
         </Button>
       </form>

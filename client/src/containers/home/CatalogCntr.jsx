@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 
 import Catalog from 'components/Catalog';
 
+import * as productActions from 'actions/ProductActions';
 class CatalogCntr extends Component {
+  addProduct = data => {
+    console.log(data);
+    this.props.productActions.addProduct(data);
+  };
+
   render() {
     const { company } = this.props;
-    return <Catalog company={company} />;
+    return <Catalog company={company} addProduct={this.addProduct} />;
   }
 }
 
@@ -17,5 +23,7 @@ export default connect(
   ({ auth, companies }) => ({
     company: companies.companies[auth.company]
   }),
-  null
+  dispatch => ({
+    productActions: bindActionCreators(productActions, dispatch)
+  })
 )(CatalogCntr);

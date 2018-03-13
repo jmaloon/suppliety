@@ -28,6 +28,7 @@ require('./routes/authRoutes')(app);
 require('./routes/userRoutes')(app);
 require('./routes/companyRoutes')(app);
 require('./routes/connectionRoutes')(app);
+require('./routes/productRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
