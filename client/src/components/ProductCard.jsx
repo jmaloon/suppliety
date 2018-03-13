@@ -6,7 +6,6 @@ const styles = {
   root: {
     display: 'flex',
     flexDirection: 'column',
-    // alignItems: 'center',
     width: 150,
     '& img': {
       alignSelf: 'center',
