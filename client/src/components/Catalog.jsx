@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Button from 'material-ui/Button';
 import Plus from 'mdi-material-ui/Plus';
-
+import ProductCard from 'components/ProductCard';
 import FetchProducts from 'containers/FetchProducts';
 import ProductForm from 'components/forms/ProductForm';
 import { withStyles, getCompanyImage } from 'theme/utils';
@@ -21,6 +21,11 @@ const styles = theme => ({
   filter: {
     gridArea: 'filter',
     padding: 20
+  },
+  productContainer: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    flexFlow: 'row wrap'
   },
   [theme.breakpoints.only('xs')]: {
     container: {
@@ -63,16 +68,11 @@ class Catalog extends Component {
           {create ? (
             <ProductForm onSubmit={this.addProduct} />
           ) : (
-            <FetchProducts productIds={company.products}>
-              {products =>
-                products.map(product => (
-                  <div>
-                    <h1>{product.title}</h1>
-                    <p>{product.description}</p>
-                  </div>
-                ))
-              }
-            </FetchProducts>
+            <div className={classes.productContainer}>
+              <FetchProducts productIds={company.products}>
+                {products => products.map(product => <ProductCard key={product._id} product={product} />)}
+              </FetchProducts>
+            </div>
           )}
         </div>
       </div>

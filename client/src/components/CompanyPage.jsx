@@ -1,6 +1,8 @@
 import React, { PureComponent, Fragment } from 'react';
 import CompanyDetails from 'components/CompanyDetails';
 import FetchUsers from 'containers/FetchUsers';
+import FetchProducts from 'containers/FetchProducts';
+import ProductCard from 'components/ProductCard';
 import UserBar from 'components/UserBar';
 import Button from 'material-ui/Button';
 import Plus from 'mdi-material-ui/Plus';
@@ -16,6 +18,11 @@ const styles = theme => ({
   content: {
     gridArea: 'content',
     padding: 20
+  },
+  products: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    flexFlow: 'row wrap'
   },
   [theme.breakpoints.down('sm')]: {
     container: {
@@ -93,6 +100,11 @@ class CompanyPage extends PureComponent {
               }
             </FetchUsers>
           )}
+          <div className={classes.products}>
+            <FetchProducts productIds={company.products}>
+              {products => products.map(product => <ProductCard key={product._id} product={product} />)}
+            </FetchProducts>
+          </div>
         </div>
       </div>
     );
