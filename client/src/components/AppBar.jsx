@@ -5,6 +5,8 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import { Link } from 'react-router-dom';
+import AuthCntr from 'containers/AuthCntr';
+import Modal from 'material-ui/Modal';
 // import { NavLink, Link } from 'react-router-dom';
 import { withStyles } from 'theme/utils';
 
@@ -31,6 +33,11 @@ const styles = theme => ({
       textDecoration: 'none',
       outline: 'none'
     }
+  },
+  modal: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    tabIndex: '-1'
   }
   // activeLink: {
   //   color: [['red', '!important']]
@@ -38,7 +45,13 @@ const styles = theme => ({
 });
 
 class MyAppBar extends Component {
-  state = { menu: false };
+  state = { menu: false, login: false };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentuser !== this.props.currentUser) {
+      this.setState({ login: false });
+    }
+  }
 
   closeMenu = () => {
     this.setState({ menu: false });
@@ -46,9 +59,12 @@ class MyAppBar extends Component {
 
   render() {
     const { currentUser, classes } = this.props;
-    const { menu } = this.state;
+    const { menu, login } = this.state;
     return (
       <Fragment>
+        <Modal open={login} onClose={() => this.setState({ login: false })} className={classes.modal}>
+          <AuthCntr />
+        </Modal>
         <AppBar className={classes.root}>
           <Toolbar>
             <Link to="/" className={classes.flex}>
@@ -64,11 +80,17 @@ class MyAppBar extends Component {
             <Link to="/discovery">
               <Button color="inherit">Discovery</Button>
             </Link>
-            {!currentUser ? (
+            {!currentUser && (
+              <Button onClick={() => this.setState({ login: true })} color="inherit">
+                Login
+              </Button>
+            )}
+            {/* {!currentUser && (
               <Button href="/auth/google" color="inherit">
                 Login With G+
               </Button>
-            ) : (
+            )} */}
+            {!!currentUser && (
               <div ref={el => (this.menu = el)}>
                 <img
                   src={currentUser.image || userDefault}

@@ -51,7 +51,7 @@ export const HomeSupplier = class extends PureComponent {
           fullWidth
           scrollable
         >
-          <Tab label="Company" />
+          <Tab label="Community" />
           <Tab label="Catalog" />
           <Tab label="Delivery Days & Policies" />
           <Tab label="Connections" />

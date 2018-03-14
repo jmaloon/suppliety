@@ -60,7 +60,7 @@ class CompanyPage extends PureComponent {
         <div className={classes.content}>
           <CompanyDetails company={company} />
           {!currentUser && (
-            <Button variant="raised" color="primary" fullWidth href="/auth/google">
+            <Button disabled={true} variant="raised" color="primary" fullWidth>
               {`Login to Connect with ${company.name}`}
             </Button>
           )}

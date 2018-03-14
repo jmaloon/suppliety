@@ -20,8 +20,19 @@ const UserSchema = new Schema({
   title: String,
   recentlyViewed: [{ type: Schema.Types.ObjectId, ref: 'product' }],
   visibility: Boolean,
-  whatsApp: String
+  whatsApp: String,
+  username: String,
+  password: String
 });
+
+// UserSchema.methods.generateHash = function(password) {
+//     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+// };
+
+UserSchema.methods.verifyPassword = function(password) {
+  // return bcrypt.compareSync(password, this.local.password);
+  return password === this.password;
+};
 
 UserSchema.pre('save', function(next) {
   Object.keys(this).forEach(key => {

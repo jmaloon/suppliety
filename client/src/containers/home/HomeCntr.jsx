@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 
 import { HomeVisitor, HomeUser, HomeSupplier } from 'components/home/Home';
 import Loader from 'components/my-elements/Loader';
 import FetchCompany from 'containers/FetchCompany';
 
-import * as companyActions from 'actions/CompanyActions';
+// import * as companyActions from 'actions/CompanyActions';
 
 class HomeCntr extends Component {
   render() {

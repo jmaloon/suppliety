@@ -81,7 +81,8 @@ class ProductForm extends PureComponent {
 
   render() {
     const { classes } = this.props;
-    const { title = '', description = '', image, newTag = '', tags = [], prices = {} } = this.state;
+    const { title = '', description = '', image, newTag = '', tags = [] } = this.state;
+    // const { title = '', description = '', image, newTag = '', tags = [], prices = {} } = this.state;
 
     return (
       <form onSubmit={this.onSubmit}>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
+// import Button from 'material-ui/Button';
 import { withStyles } from 'theme/utils';
 
 const styles = theme => ({
@@ -27,9 +27,9 @@ export default withStyles(styles)(({ classes }) => (
   <div className={classes.container}>
     <div className={classes.content}>
       <Typography variant="display1">Welcome Visitor</Typography>
-      <Button href="/auth/google" variant="raised" color="primary">
+      {/* <Button href="/auth/google" variant="raised" color="primary">
         Login With G+
-      </Button>
+      </Button> */}
     </div>
   </div>
 ));

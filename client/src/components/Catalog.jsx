@@ -48,7 +48,7 @@ class Catalog extends Component {
   };
 
   render() {
-    const { classes, company, addProduct } = this.props;
+    const { classes, company } = this.props;
     const { create } = this.state;
     return (
       <div className={classes.container}>
