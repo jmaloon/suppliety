@@ -57,6 +57,11 @@ class MyAppBar extends Component {
     this.setState({ menu: false });
   };
 
+  logout = () => {
+    this.closeMenu();
+    this.props.logout();
+  };
+
   render() {
     const { currentUser, classes } = this.props;
     const { menu, login } = this.state;
@@ -105,9 +110,7 @@ class MyAppBar extends Component {
                   <Link to="/my-company">
                     <MenuItem onClick={this.closeMenu}>My Company</MenuItem>
                   </Link>
-                  <a href="/api/logout">
-                    <MenuItem onClick={this.closeMenu}>Logout</MenuItem>
-                  </a>
+                  <MenuItem onClick={this.logout}>Logout</MenuItem>
                 </Menu>
               </div>
             )}

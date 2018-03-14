@@ -41,3 +41,16 @@ export const loginUser = ({ username }) => async dispatch => {
 //     console.log(err);
 //   }
 // };
+
+export const logout = () => async dispatch => {
+  try {
+    const res = await axios.get('/api/logout');
+    dispatch({
+      type: types.AUTH_FETCH_USER,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log('Error logging out');
+    console.log(err);
+  }
+};
