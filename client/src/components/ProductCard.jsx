@@ -24,7 +24,7 @@ class ProductCard extends PureComponent {
           {product.title}
         </Typography>
         <img src={getProductImage(product.image)} alt={product.title} />
-        <Typography>{product.description}</Typography>
+        <Typography noWrap>{product.description}</Typography>
       </div>
     );
   }

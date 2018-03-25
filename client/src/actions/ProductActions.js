@@ -5,7 +5,6 @@ import companyTypes from 'constants/CompanyActionTypes';
 export const addProduct = productData => async dispatch => {
   try {
     const res = await axios.post('/api/product/new', { productData });
-    console.log(res);
     dispatch({
       type: types.ADD_PRODUCT,
       payload: res.data[0]
@@ -23,7 +22,6 @@ export const addProduct = productData => async dispatch => {
 export const editProduct = productData => async dispatch => {
   try {
     const res = await axios.patch(`/api/product/edit`, { productData });
-    console.log(res);
     dispatch({
       type: types.ADD_PRODUCT,
       payload: res.data
@@ -37,8 +35,6 @@ export const editProduct = productData => async dispatch => {
 export const fetchProducts = productIds => async dispatch => {
   try {
     const res = await axios.post('/api/products/fetch', { productIds });
-    console.log(res);
-
     dispatch({
       type: types.FETCH_PRODUCTS,
       payload: res.data

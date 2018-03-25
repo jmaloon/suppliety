@@ -11,6 +11,7 @@ import Modal from 'material-ui/Modal';
 import { withStyles } from 'theme/utils';
 
 import userDefault from 'assets/images/user-default.svg';
+import logo from 'assets/images/logo.svg';
 
 const styles = theme => ({
   root: {
@@ -20,6 +21,9 @@ const styles = theme => ({
   },
   flex: { flex: 1 },
   padder: theme.mixins.toolbar,
+  logo: {
+    height: 50
+  },
   image: {
     width: 50,
     height: 50,
@@ -73,9 +77,10 @@ class MyAppBar extends Component {
         <AppBar className={classes.root}>
           <Toolbar>
             <Link to="/" className={classes.flex}>
-              <Typography variant="title" color="inherit">
+              <img src={logo} alt='Suppliety' className={classes.logo} />
+              {/* <Typography variant="title" color="inherit">
                 Suppliety
-              </Typography>
+              </Typography> */}
             </Link>
             {!!currentUser && (
               <Link to="/">

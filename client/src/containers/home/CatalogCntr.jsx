@@ -15,16 +15,17 @@ class CatalogCntr extends Component {
   };
 
   render() {
-    const { company } = this.props;
-    return <Catalog company={company} addProduct={this.addProduct} editProduct={this.editProduct} />;
+    const { company, products } = this.props;
+    return <Catalog company={company} products={products} addProduct={this.addProduct} editProduct={this.editProduct} />;
   }
 }
 
 // if on this page we assume that the company
 // has already been loaded and they are a supplier
 export default connect(
-  ({ auth, companies }) => ({
-    company: companies.companies[auth.company]
+  ({ auth, companies, products }) => ({
+    company: companies.companies[auth.company],
+    products: Object.values(products)
   }),
   dispatch => ({
     productActions: bindActionCreators(productActions, dispatch)

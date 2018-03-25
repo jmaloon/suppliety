@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40">
+	<title>
+		logo
+	</title>
+	<path d="M50,42.31A19.9962,19.9962,0,1,1,40,5,19.838,19.838,0,0,1,50,7.69a19.9818,19.9818,0,0,0,0,34.62Z" transform="translate(-20 -5)" style="fill:#cddc39" />
+	<ellipse cx="30" cy="20" rx="10" ry="17.31" style="fill:none" />
+	<path d="M80,25A19.9857,19.9857,0,0,1,50,42.31,19.9818,19.9818,0,0,0,50,7.69,19.9857,19.9857,0,0,1,80,25Z" transform="translate(-20 -5)" style="fill:#e91e63" />
+	<text transform="translate(1.2037 23.7339)" style="font-size:14px;fill:#fff;font-family:ArialMT, Arial">
+		Suppliety
+	</text>
+</svg>
