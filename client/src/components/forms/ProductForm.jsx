@@ -37,8 +37,8 @@ class ProductForm extends PureComponent {
   // privacy: Boolean
 
   getInitialState(props) {
-    if (props && props.product) {
-      const { _id, title, description, image, tags, prices } = props.currentUser;
+    if (props && props.product && props.product !== 'create') {
+      const { _id, title, description, image, tags, prices } = props.product;
       return {
         _id,
         title,

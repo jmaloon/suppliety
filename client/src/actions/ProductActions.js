@@ -20,6 +20,20 @@ export const addProduct = productData => async dispatch => {
   }
 };
 
+export const editProduct = productData => async dispatch => {
+  try {
+    const res = await axios.patch(`/api/product/edit`, { productData });
+    console.log(res);
+    dispatch({
+      type: types.ADD_PRODUCT,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log('Error Editing Product');
+    console.log(err);
+  }
+};
+
 export const fetchProducts = productIds => async dispatch => {
   try {
     const res = await axios.post('/api/products/fetch', { productIds });

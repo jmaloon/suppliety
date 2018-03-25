@@ -7,6 +7,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     width: 150,
+    cursor: 'pointer',
     '& img': {
       alignSelf: 'center',
       width: '80%'
@@ -16,9 +17,9 @@ const styles = {
 
 class ProductCard extends PureComponent {
   render() {
-    const { classes, product } = this.props;
+    const { classes, product, onClick } = this.props;
     return (
-      <div className={classes.root}>
+      <div className={classes.root} onClick={onClick} >
         <Typography variant="title" noWrap>
           {product.title}
         </Typography>

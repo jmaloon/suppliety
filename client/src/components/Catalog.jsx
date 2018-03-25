@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import Button from 'material-ui/Button';
 import Plus from 'mdi-material-ui/Plus';
@@ -36,44 +37,52 @@ const styles = theme => ({
 });
 
 class Catalog extends Component {
-  state = { create: false };
+  state = { item: null };
 
   onCreate = () => {
-    this.setState({ create: false });
+    this.setState({ item: null });
   };
 
   addProduct = data => {
-    this.setState({ create: false });
+    this.setState({ item: null });
     this.props.addProduct(data);
   };
 
+  onSubmit = data => {
+    const { item } = this.state;
+    this.setState({ item: null });
+    if (item === 'create') return this.props.addProduct(data);
+    return this.props.editProduct(data);
+  }
+
   render() {
     const { classes, company } = this.props;
-    const { create } = this.state;
+    const { item } = this.state;
+
     return (
       <div className={classes.container}>
         <div className={classes.filter}>
           <img src={getCompanyImage(company)} alt={company.name} />
-          {create ? (
-            <Button fullWidth color="secondary" onClick={() => this.setState({ create: false })}>
+          {!!item ? (
+            <Button fullWidth color="secondary" onClick={() => this.setState({ item: false })}>
               cancel
             </Button>
           ) : (
-            <Button fullWidth color="primary" onClick={() => this.setState({ create: true })}>
-              <Plus /> Create
+              <Button fullWidth color="primary" onClick={() => this.setState({ item: 'create' })}>
+                <Plus /> Create
             </Button>
-          )}
+            )}
         </div>
         <div className={classes.content}>
-          {create ? (
-            <ProductForm onSubmit={this.addProduct} />
+          {!!item ? (
+            <ProductForm onSubmit={this.onSubmit} product={item} />
           ) : (
-            <div className={classes.productContainer}>
-              <FetchProducts productIds={company.products}>
-                {products => products.map(product => <ProductCard key={product._id} product={product} />)}
-              </FetchProducts>
-            </div>
-          )}
+              <div className={classes.productContainer}>
+                <FetchProducts productIds={company.products}>
+                  {products => products.map(product => <ProductCard key={product._id} product={product} onClick={() => this.setState({ item: product })} />)}
+                </FetchProducts>
+              </div>
+            )}
         </div>
       </div>
     );

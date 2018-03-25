@@ -10,9 +10,13 @@ class CatalogCntr extends Component {
     this.props.productActions.addProduct(data);
   };
 
+  editProduct = data => {
+    this.props.productActions.editProduct(data);
+  };
+
   render() {
     const { company } = this.props;
-    return <Catalog company={company} addProduct={this.addProduct} />;
+    return <Catalog company={company} addProduct={this.addProduct} editProduct={this.editProduct} />;
   }
 }
 
