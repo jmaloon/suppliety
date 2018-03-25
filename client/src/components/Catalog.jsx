@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import classNames from "classnames";
 
 import Button from "material-ui/Button";
 import Plus from "mdi-material-ui/Plus";
@@ -28,9 +29,30 @@ const styles = theme => ({
       backgroundColor: theme.palette.grey[300]
     }
   },
+  tag: {
+    display: "flex",
+    alignItems: "center",
+    position: "relative",
+    cursor: "pointer",
+    "&:hover": {
+      backgroundColor: theme.palette.grey[200]
+    },
+    "&.selected": {
+      // backgroundColor: theme.palette.grey[200],
+      "&::before": {
+        content: '""',
+        position: "absolute",
+        left: -10,
+        width: 5,
+        height: 5,
+        borderRadius: "50%",
+        backgroundColor: theme.palette.primary.main
+      }
+    }
+  },
   productContainer: {
     display: "flex",
-    justifyContent: "space-around",
+    // justifyContent: "space-around",
     flexFlow: "row wrap"
   },
   [theme.breakpoints.only("xs")]: {
@@ -115,13 +137,16 @@ class Catalog extends Component {
             {productTags.length && (
               <Fragment>
                 <Typography variant="body2">Tags</Typography>
-                {productTags.map(tag => (
-                  <Typography
-                    variant={tags.includes(tag) ? "body2" : "body1"}
+                {productTags.map((tag, i) => (
+                  <div
+                    key={i}
+                    className={classNames(classes.tag, {
+                      selected: tags.includes(tag)
+                    })}
                     onClick={this.toggleTag(tag)}
                   >
-                    {tag}
-                  </Typography>
+                    <Typography noWrap>{tag}</Typography>
+                  </div>
                 ))}
               </Fragment>
             )}
