@@ -25,7 +25,7 @@ class CatalogCntr extends Component {
 export default connect(
   ({ auth, companies, products }) => ({
     company: companies.companies[auth.company],
-    products: Object.values(products)
+    products: companies.companies[auth.company].products.map(p => products[p]).filter(i => !!i)
   }),
   dispatch => ({
     productActions: bindActionCreators(productActions, dispatch)

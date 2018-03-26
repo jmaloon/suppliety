@@ -66,7 +66,7 @@ export const HomeSupplier = class extends PureComponent {
   }
 };
 
-export const HomeVisitor = class extends PureComponent {
+export const HomeUnconnected = class extends PureComponent {
   state = {};
   render() {
     const { tab = 0 } = this.state;
@@ -86,7 +86,9 @@ export const HomeVisitor = class extends PureComponent {
           <Tab label="Connections" />
         </Tabs>
 
-        {tab === 1 ? <ProductsHome /> : <Visitor />}
+        {tab === 0 && <Visitor />}
+        {tab === 1 && <ProductsHome />}        
+        {tab === 2 && <ConnectionsCntr />}        
       </Fragment>
     );
   }

@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import { Link } from 'react-router-dom';
@@ -78,9 +77,6 @@ class MyAppBar extends Component {
           <Toolbar>
             <Link to="/" className={classes.flex}>
               <img src={logo} alt='Suppliety' className={classes.logo} />
-              {/* <Typography variant="title" color="inherit">
-                Suppliety
-              </Typography> */}
             </Link>
             {!!currentUser && (
               <Link to="/">
@@ -95,11 +91,6 @@ class MyAppBar extends Component {
                 Login
               </Button>
             )}
-            {/* {!currentUser && (
-              <Button href="/auth/google" color="inherit">
-                Login With G+
-              </Button>
-            )} */}
             {!!currentUser && (
               <div ref={el => (this.menu = el)}>
                 <img

@@ -100,11 +100,11 @@ class CompanyPage extends PureComponent {
               }
             </FetchUsers>
           )}
-          <div className={classes.products}>
+          {company.type === "Supplier" && (<div className={classes.products}>
             <FetchProducts productIds={company.products}>
               {products => products.map(product => <ProductCard key={product._id} product={product} />)}
             </FetchProducts>
-          </div>
+          </div>)}
         </div>
       </div>
     );

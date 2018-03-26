@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import { bindActionCreators } from 'redux';
 
-import { HomeVisitor, HomeUser, HomeSupplier } from 'components/home/Home';
+import { HomeUnconnected, HomeUser, HomeSupplier } from 'components/home/Home';
 import Loader from 'components/my-elements/Loader';
 import FetchCompany from 'containers/FetchCompany';
 
@@ -15,7 +15,7 @@ class HomeCntr extends Component {
 
     if (currentUser === null) return <Loader />;
     if (!currentUser) return <Redirect to="/discovery" />;
-    if (!currentUser.companyAccepted) return <HomeVisitor />;
+    if (!currentUser.companyAccepted) return <HomeUnconnected />;
     return (
       <FetchCompany companyId={currentUser.company}>
         {c => (c.type === 'Supplier' ? <HomeSupplier /> : <HomeUser />)}

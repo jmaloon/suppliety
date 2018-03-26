@@ -32,7 +32,7 @@ module.exports = app => {
       const { joinerId } = req.body;
 
       const company = await Company.findById(user.company);
-      const accountRequests = company.accountRequests.filter(account => account === joinerId);
+      const accountRequests = company.accountRequests.filter(account => account.toString() !== joinerId);
       if (accountRequests.length === company.accountRequests.length) throw 'Request is no longer valid';
       const joiner = await User.findById(joinerId);
       company.accounts.push(joiner);
@@ -74,12 +74,12 @@ module.exports = app => {
       const { companyId } = req.body;
       const otherCompany = await Company.findById(companyId);
       const myCompany = await Company.findById(req.user.company);
-
+      
       //remove companies from both request lists
-      myCompany.connectionRequestsSent = myCompany.connectionRequestsSent.filter(c => c === companyId);
-      myCompany.connectionRequestsReceived = myCompany.connectionRequestsReceived.filter(c => c === companyId);
-      otherCompany.connectionRequestsSent = otherCompany.connectionRequestsSent.filter(c => c === req.user.company);
-      otherCompany.connectionRequestsReceived = otherCompany.connectionRequestsReceived.filter(c => c === req.user.company);
+      myCompany.connectionRequestsSent = myCompany.connectionRequestsSent.filter(c => c.toString() !== companyId);
+      myCompany.connectionRequestsReceived = myCompany.connectionRequestsReceived.filter(c => c.toString() !== companyId);
+      otherCompany.connectionRequestsSent = otherCompany.connectionRequestsSent.filter(c => c.toString() !== req.user.company);
+      otherCompany.connectionRequestsReceived = otherCompany.connectionRequestsReceived.filter(c => c.toString() !== req.user.company);
       //add companies to connections list
       otherCompany.connections.push(myCompany);
       myCompany.connections.push(otherCompany);
@@ -125,14 +125,14 @@ module.exports = app => {
       const currentUser = await User.findById(req.user._id);
       //check that connection doesn't exist
       if (currentUser.connections.includes(userId)) throw 'Connection already exists';
-
       const otherUser = await User.findById(userId);
+
       otherUser.connections.push(currentUser);
       currentUser.connections.push(otherUser);
-      currentUser.connectionRequestsSent = currentUser.connectionRequestsSent.filter(c => c === userId);
-      currentUser.connectionRequestsReceived = currentUser.connectionRequestsReceived.filter(c => c === userId);
-      otherUser.connectionRequestsSent = otherUser.connectionRequestsSent.filter(c => c === req.user._id);
-      otherUser.connectionRequestsReceived = otherUser.connectionRequestsReceived.filter(c => c === req.user._id);
+      currentUser.connectionRequestsSent = currentUser.connectionRequestsSent.filter(c => c.toString() !== userId);
+      currentUser.connectionRequestsReceived = currentUser.connectionRequestsReceived.filter(c => c.toString() !== userId);
+      otherUser.connectionRequestsSent = otherUser.connectionRequestsSent.filter(c => c.toString() !== req.user._id);
+      otherUser.connectionRequestsReceived = otherUser.connectionRequestsReceived.filter(c => c.toString() !== req.user._id);
 
       await otherUser.save();
       await currentUser.save();

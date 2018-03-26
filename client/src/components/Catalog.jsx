@@ -134,7 +134,7 @@ class Catalog extends Component {
           </div>
           <div className="refine">
             <Typography variant="subheading">Refine</Typography>
-            {productTags.length && (
+            {!!productTags.length && (
               <Fragment>
                 <Typography variant="body2">Tags</Typography>
                 {productTags.map((tag, i) => (

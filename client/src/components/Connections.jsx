@@ -1,36 +1,40 @@
-import React, { Fragment, PureComponent } from 'react';
-import { Link } from 'react-router-dom';
-import Typography from 'material-ui/Typography';
-import FetchUsers from 'containers/FetchUsers';
-import FetchCompanies from 'containers/FetchCompanies';
-import UserCard from 'components/UserCard';
-import UserBar from 'components/UserBar';
-import CompanyCard from 'components/CompanyCard';
-import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
-import Eye from 'mdi-material-ui/Eye';
+import React, { Fragment, PureComponent } from "react";
+import { Link } from "react-router-dom";
+import Typography from "material-ui/Typography";
+import FetchUsers from "containers/FetchUsers";
+import FetchCompanies from "containers/FetchCompanies";
+import FetchCompany from "containers/FetchCompany";
+import UserCard from "components/UserCard";
+import UserBar from "components/UserBar";
+import CompanyCard from "components/CompanyCard";
+import Button from "material-ui/Button";
+import IconButton from "material-ui/IconButton";
+import Eye from "mdi-material-ui/Eye";
 
-import { withStyles } from 'theme/utils';
+import { withStyles } from "theme/utils";
 
 const styles = theme => ({
   container: {
-    display: 'grid',
-    gridTemplateColumns: 'auto 960px auto',
-    gridTemplateRows: 'auto',
+    display: "grid",
+    gridTemplateColumns: "auto 960px auto",
+    gridTemplateRows: "auto",
     gridTemplateAreas: "'. content .'"
   },
   content: {
-    gridArea: 'content',
+    gridArea: "content",
     padding: 20
     // '& a': {
     //   textDecoration: 'none'
     // }
   },
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down("sm")]: {
     container: {
-      gridTemplateColumns: 'auto',
+      gridTemplateColumns: "auto",
       gridTemplateAreas: "'content'"
     }
+  },
+  flex: {
+    display: 'flex',
   }
 });
 
@@ -52,7 +56,9 @@ class Connections extends PureComponent {
             <FetchCompanies companyIds={[currentUser.company]}>
               {userCompany => (
                 <Fragment>
-                  <Typography variant="display1">Company Connections</Typography>
+                  <Typography variant="display1">
+                    Company Connections
+                  </Typography>
                   <FetchCompanies companyIds={userCompany[0].connections}>
                     {companies =>
                       companies.map(company => (
@@ -68,8 +74,12 @@ class Connections extends PureComponent {
                   </FetchCompanies>
                   {!!userCompany[0].connectionRequestsSent.length && (
                     <Fragment>
-                      <Typography variant="display1">Company Connections Sent</Typography>
-                      <FetchCompanies companyIds={userCompany[0].connectionRequestsSent}>
+                      <Typography variant="display1">
+                        Company Connections Sent
+                      </Typography>
+                      <FetchCompanies
+                        companyIds={userCompany[0].connectionRequestsSent}
+                      >
                         {companies =>
                           companies.map(company => (
                             <CompanyCard key={company._id} company={company}>
@@ -84,12 +94,20 @@ class Connections extends PureComponent {
                   )}
                   {!!userCompany[0].connectionRequestsReceived.length && (
                     <Fragment>
-                      <Typography variant="display1">Company Connections Received</Typography>
-                      <FetchCompanies companyIds={userCompany[0].connectionRequestsReceived}>
+                      <Typography variant="display1">
+                        Company Connections Received
+                      </Typography>
+                      <FetchCompanies
+                        companyIds={userCompany[0].connectionRequestsReceived}
+                      >
                         {companies =>
                           companies.map(company => (
                             <CompanyCard key={company._id} company={company}>
-                              <Button variant="raised" color="primary" onClick={acceptCompanyRequest(company._id)}>
+                              <Button
+                                variant="raised"
+                                color="primary"
+                                onClick={acceptCompanyRequest(company._id)}
+                              >
                                 Accept
                               </Button>
                             </CompanyCard>
@@ -100,21 +118,38 @@ class Connections extends PureComponent {
                   )}
                   {!!userCompany[0].accountRequests.length && (
                     <Fragment>
-                      <Typography variant="display1">Company Account Requests</Typography>
-                      <FetchUsers userIds={userCompany[0].accountRequests}>
-                        {users =>
-                          users.map(u => (
-                            <UserCard key={u._id} user={u}>
-                              <Button onClick={acceptAccountRequest(u._id)}>Accept</Button>
-                            </UserCard>
-                          ))
-                        }
-                      </FetchUsers>
+                      <Typography variant="display1">
+                        Company Account Requests
+                      </Typography>
+                      <div className={classes.flex}>
+                        <FetchUsers userIds={userCompany[0].accountRequests}>
+                          {users =>
+                            users.map(u => (
+                              <UserCard key={u._id} user={u}>
+                                <Button color='primary' variant='raised' onClick={acceptAccountRequest(u._id)}>Accept</Button>
+                              </UserCard>
+                            ))
+                          }
+                        </FetchUsers>
+                      </div>
                     </Fragment>
                   )}
                 </Fragment>
               )}
             </FetchCompanies>
+          )}
+          {!currentUser.companyAccepted && currentUser.company && (
+            <FetchCompany companyId={currentUser.company}>{company => (
+              <CompanyCard company={company}>
+                <Button
+                  variant="raised"
+                  color="primary"
+                  disabled
+                >
+                  Join Requested
+                </Button>
+              </CompanyCard>
+            )}</FetchCompany>
           )}
           <Typography variant="display1">Connections</Typography>
           <FetchUsers userIds={currentUser.connections}>
