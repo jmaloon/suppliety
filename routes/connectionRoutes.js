@@ -78,8 +78,8 @@ module.exports = app => {
       //remove companies from both request lists
       myCompany.connectionRequestsSent = myCompany.connectionRequestsSent.filter(c => c.toString() !== companyId);
       myCompany.connectionRequestsReceived = myCompany.connectionRequestsReceived.filter(c => c.toString() !== companyId);
-      otherCompany.connectionRequestsSent = otherCompany.connectionRequestsSent.filter(c => c.toString() !== req.user.company);
-      otherCompany.connectionRequestsReceived = otherCompany.connectionRequestsReceived.filter(c => c.toString() !== req.user.company);
+      otherCompany.connectionRequestsSent = otherCompany.connectionRequestsSent.filter(c => c.toString() !== req.user.company.toString());
+      otherCompany.connectionRequestsReceived = otherCompany.connectionRequestsReceived.filter(c => c.toString() !== req.user.company.toString());
       //add companies to connections list
       otherCompany.connections.push(myCompany);
       myCompany.connections.push(otherCompany);

@@ -14,6 +14,10 @@ class CompanyPageCntr extends Component {
     if (!company) companyActions.fetchCompany(companyId);
   }
 
+  acceptCompanyRequest = companyId => () => {
+    this.props.connectionActions.acceptCompanyRequest(companyId);
+  };
+
   requestCompanyConnection = companyId => () => {
     this.props.connectionActions.requestCompanyConnection(companyId);
   };
@@ -27,15 +31,17 @@ class CompanyPageCntr extends Component {
   };
 
   render() {
-    const { currentUser, company, connected, myCompany, connectionRequested } = this.props;
+    const { currentUser, company, connected, myCompany, connectionRequestSent, connectionRequestReceived } = this.props;
     if (!company) return <Loader />;
     return (
       <CompanyPage
         currentUser={currentUser}
         company={company}
         connected={connected}
-        connectionRequested={connectionRequested}
+        connectionRequestSent={connectionRequestSent}
+        connectionRequestReceived={connectionRequestReceived}
         myCompany={myCompany}
+        acceptCompanyRequest={this.acceptCompanyRequest}
         requestCompanyConnection={this.requestCompanyConnection}
         requestUserConnection={this.requestUserConnection}
         acceptUserConnection={this.acceptUserConnection}
@@ -52,10 +58,14 @@ export default connect(
       userHasCompany(auth) &&
       !!companies.companies[companyId] &&
       companies.companies[companyId].connections.includes(auth.company),
-    connectionRequested:
+    connectionRequestSent:
       userHasCompany(auth) &&
       !!companies.companies[companyId] &&
       companies.companies[companyId].connectionRequestsReceived.includes(auth.company),
+    connectionRequestReceived:
+      userHasCompany(auth) &&
+      !!companies.companies[companyId] &&
+      companies.companies[companyId].connectionRequestsSent.includes(auth.company),
     myCompany: userHasCompany(auth) && auth.company === companyId
   }),
   dispatch => ({

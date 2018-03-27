@@ -46,10 +46,12 @@ class CompanyPage extends PureComponent {
       classes,
       company,
       connected,
-      connectionRequested,
+      connectionRequestReceived,
+      connectionRequestSent,
       currentUser,
       myCompany,
       requestCompanyConnection,
+      acceptCompanyRequest,
       acceptUserConnection,
       requestUserConnection
     } = this.props;
@@ -71,12 +73,16 @@ class CompanyPage extends PureComponent {
                 variant="raised"
                 color="secondary"
                 fullWidth
-                disabled={connectionRequested}
-                onClick={requestCompanyConnection(company._id)}
+                disabled={connectionRequestSent && !connectionRequestReceived}
+                onClick={connectionRequestReceived ? 
+                  acceptCompanyRequest(company._id) :
+                  requestCompanyConnection(company._id)
+                }
               >
-                {connectionRequested ? (
-                  'Connection Pending'
-                ) : (
+                {connectionRequestReceived ? 
+                  'Accept' :
+                  connectionRequestSent ?
+                  'Connection Pending' : (
                   <Fragment>
                     <Plus /> Connect
                   </Fragment>
