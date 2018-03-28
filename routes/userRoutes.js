@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const Product = require('../models/product');
+const loginRequired = require('../middlewares/loginRequired');
 
 module.exports = app => {
   app.patch('/api/user/:id', async (req, res) => {
@@ -31,4 +33,37 @@ module.exports = app => {
       res.status(400).send(err);
     }
   });
+
+  app.post('/api/user/addProduct', loginRequired, async (req,res) => {
+    try {
+      const { productId } = req.body;
+      
+      const product = await Product.findById(productId);
+      if (!product) throw 'Cannot find product';
+
+      const user = await User.findById(req.user._id);
+      user.products.push(product);
+      await user.save();
+      
+      const updatedUser = await User.findById(req.user._id);
+      res.send(updatedUser);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  })
+
+  app.post('/api/user/removeProduct', loginRequired, async (req,res) => {
+    try {
+      const { productId } = req.body;
+
+      const user = await User.findById(req.user._id);
+      user.products = user.products.filter(p => p.toString() !== productId );
+      await user.save();
+      
+      const updatedUser = await User.findById(req.user._id);
+      res.send(updatedUser);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  })
 };

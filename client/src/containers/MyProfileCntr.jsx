@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 
 import MyProfile from 'components/MyProfile';
 import Loader from 'components/my-elements/Loader';
@@ -14,7 +15,8 @@ class MyProfileCntr extends Component {
 
   render() {
     const { currentUser } = this.props;
-    if (!currentUser) return <Loader />;
+    if (currentUser === false) return <Redirect to='/' />
+    if (currentUser === null) return <Loader />;
     return <MyProfile currentUser={currentUser} onSubmit={this.updateUser} />;
   }
 }

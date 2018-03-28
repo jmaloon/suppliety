@@ -17,6 +17,7 @@ const UserSchema = new Schema({
   nameFirst: String,
   nameLast: String,
   phone: String,
+  products: [{ type: Schema.Types.ObjectId, ref: 'product' }],
   title: String,
   recentlyViewed: [{ type: Schema.Types.ObjectId, ref: 'product' }],
   visibility: Boolean,

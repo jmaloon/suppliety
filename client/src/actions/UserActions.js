@@ -31,3 +31,37 @@ export const fetchUsers = userIds => async dispatch => {
     console.log(err);
   }
 };
+
+export const addProduct = productId => async dispatch => {
+  try {
+    const res = await axios.post('/api/user/addProduct', { productId });
+    dispatch({
+      type: authTypes.AUTH_FETCH_USER,
+      payload: res.data
+    });
+    dispatch({
+      type: types.FETCH_USER,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log('Error adding product to user')
+    console.log(err)
+  }
+}
+
+export const removeProduct = productId => async dispatch => {
+  try {
+    const res = await axios.post('/api/user/removeProduct', { productId });
+    dispatch({
+      type: authTypes.AUTH_FETCH_USER,
+      payload: res.data
+    });
+    dispatch({
+      type: types.FETCH_USER,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log('Error removing product from user')
+    console.log(err)
+  }
+}

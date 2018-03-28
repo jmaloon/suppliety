@@ -7,6 +7,7 @@ import CompanyPage from 'components/CompanyPage';
 import { userHasCompany } from 'theme/utils';
 import * as companyActions from 'actions/CompanyActions';
 import * as connectionActions from 'actions/ConnectionActions';
+import * as userActions from 'actions/UserActions';
 
 class CompanyPageCntr extends Component {
   componentDidMount() {
@@ -30,6 +31,14 @@ class CompanyPageCntr extends Component {
     this.props.connectionActions.acceptUserConnection(userId);
   };
 
+  addProductToUser = productId => {
+    this.props.userActions.addProduct(productId)
+  }
+
+  removeProductFromUser = productId => {
+    this.props.userActions.removeProduct(productId)
+  }
+
   render() {
     const { currentUser, company, connected, myCompany, connectionRequestSent, connectionRequestReceived } = this.props;
     if (!company) return <Loader />;
@@ -45,6 +54,8 @@ class CompanyPageCntr extends Component {
         requestCompanyConnection={this.requestCompanyConnection}
         requestUserConnection={this.requestUserConnection}
         acceptUserConnection={this.acceptUserConnection}
+        addProductToUser={this.addProductToUser}
+        removeProductFromUser={this.removeProductFromUser}
       />
     );
   }
@@ -70,6 +81,7 @@ export default connect(
   }),
   dispatch => ({
     companyActions: bindActionCreators(companyActions, dispatch),
-    connectionActions: bindActionCreators(connectionActions, dispatch)
+    connectionActions: bindActionCreators(connectionActions, dispatch),
+    userActions: bindActionCreators(userActions, dispatch)
   })
 )(CompanyPageCntr);

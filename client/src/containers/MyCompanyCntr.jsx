@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 
 import MyCompany from 'components/MyCompany';
 import AddCompany from 'components/AddCompany';
@@ -39,13 +40,16 @@ class MyCompanyCntr extends Component {
 
   render() {
     const { currentUser, company } = this.props;
+    // if logged out then redirect
+    if (currentUser === false) return <Redirect to='/' />;
     // if currentuser but no company then show select/create page
     if (!!currentUser && !currentUser.company) {
       return <AddCompany onCreateCompany={this.onCreateCompany} onAccountRequest={this.onAccountRequest} />;
     }
-    if (!company) {
-      return <Loader />;
-    }
+    // if user not loaded or company not loaded show loading
+    if (!company || !currentUser) return <Loader />;
+
+    // return the my company page if user, company loaded
     return <MyCompany company={company} currentUser={currentUser} onSubmit={this.onUpdateCompany} />;
   }
 }

@@ -41,6 +41,14 @@ class CompanyPage extends PureComponent {
   //   return this.setState({ expanded: [...expanded, id] });
   // };
 
+  toggleProduct = productId => () => {
+    const { currentUser, addProductToUser, removeProductFromUser } = this.props;
+    if (currentUser.products.includes(productId)) {
+      return removeProductFromUser(productId);
+    }
+    return addProductToUser(productId);
+  }
+
   render() {
     const {
       classes,
@@ -108,7 +116,15 @@ class CompanyPage extends PureComponent {
           )}
           {company.type === "Supplier" && (<div className={classes.products}>
             <FetchProducts productIds={company.products}>
-              {products => products.map(product => <ProductCard key={product._id} product={product} />)}
+              {products => products.map(product => (
+                <ProductCard 
+                  key={product._id} 
+                  product={product}
+                  canAdd={!!currentUser && !myCompany}
+                  added={!!currentUser && currentUser.products.includes(product._id)}
+                  onAdd={this.toggleProduct(product._id)}
+                />
+              ))}
             </FetchProducts>
           </div>)}
         </div>
